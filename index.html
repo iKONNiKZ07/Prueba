@@ -11,114 +11,128 @@ body {
     font-family: 'Arial', sans-serif;
     overflow: hidden;
     background: linear-gradient(to top, #ff9966, #ff5e62, #7b4397);
-    animation: sunset 8s ease-in-out forwards;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-@keyframes sunset {
-    from { filter: brightness(1.1); }
-    to { filter: brightness(0.95); }
-}
-
+/* 📦 CONTENEDOR */
 .container {
-    background: rgba(255,255,255,0.88);
-    border-radius: 22px;
-    padding: 22px;
-    width: 90%;
-    max-width: 420px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 26px;
+    padding: 30px 26px;
+    width: 92%;
+    max-width: 520px;
     text-align: center;
-    animation: fadeIn 3s ease;
+    animation: fadeIn 2.5s ease;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(40px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 h1 {
     color: #b03060;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
+/* 💌 TEXTO */
 .texto {
     font-size: 1.05rem;
     color: #4a2c2a;
-    line-height: 1.5;
+    line-height: 1.55;
     white-space: pre-line;
+    margin-bottom: 20px;
+}
+
+/* ⏱ TIEMPO */
+.tiempo {
+    font-weight: bold;
+    margin: 14px 0 22px;
+    color: #7a1f3d;
 }
 
 /* 🌳 ÁRBOL */
 .tree {
     position: relative;
-    width: 220px;
-    height: 260px;
-    margin: 20px auto 10px;
+    width: 240px;
+    height: 300px;
+    margin: 0 auto;
 }
 
 .trunk {
     position: absolute;
     bottom: 0;
     left: 50%;
-    width: 32px;
-    height: 90px;
+    width: 36px;
+    height: 100px;
     background: linear-gradient(#8b5a2b, #5c3317);
     transform: translateX(-50%);
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
-/* 🌿 COPA DEL ÁRBOL */
 .canopy {
     position: absolute;
-    bottom: 70px;
+    bottom: 85px;
     left: 50%;
-    width: 190px;
-    height: 160px;
+    width: 220px;
+    height: 180px;
     transform: translateX(-50%);
 }
 
-/* ❤️ CORAZONES HOJAS */
+/* ❤️ CORAZONES */
 .heart {
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     background: crimson;
     transform: rotate(45deg);
-    animation: pulse 4s ease-in-out infinite;
+    animation: pulse 4s infinite ease-in-out;
 }
 
 .heart::before,
 .heart::after {
     content: "";
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     background: crimson;
     border-radius: 50%;
 }
 
-.heart::before { top: -7px; left: 0; }
-.heart::after { left: -7px; top: 0; }
+.heart::before { top: -8px; left: 0; }
+.heart::after { left: -8px; top: 0; }
 
 @keyframes pulse {
-    0% { transform: scale(1) rotate(45deg); opacity: 0.9; }
-    50% { transform: scale(1.15) rotate(45deg); opacity: 1; }
-    100% { transform: scale(1) rotate(45deg); opacity: 0.9; }
+    0% { transform: scale(1) rotate(45deg); }
+    50% { transform: scale(1.2) rotate(45deg); }
+    100% { transform: scale(1) rotate(45deg); }
 }
 
-/* 💕 CORAZONES FLOTANTES */
-.floating {
+/* 💕 EMOJIS SUBIENDO */
+.float {
     position: absolute;
-    bottom: -20px;
-    font-size: 18px;
-    animation: rise 12s linear infinite;
-    opacity: 0.6;
+    bottom: -30px;
+    animation: rise linear infinite;
+    opacity: 0.7;
 }
 
 @keyframes rise {
     from { transform: translateY(0); }
-    to { transform: translateY(-110vh); }
+    to { transform: translateY(-120vh); }
+}
+
+/* 🎶 BOTÓN */
+button {
+    margin-top: 12px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #ff5e62;
+    color: white;
+    font-size: 0.95rem;
 }
 </style>
 </head>
@@ -126,20 +140,26 @@ h1 {
 <body>
 
 <div class="container">
-    <h1>Para Scarlett ❤️</h1>
+<h1>Para Scarlett ❤️</h1>
 
-    <div class="texto">
-Gracias por ser mi San Valentín
-por casi una década…
+<div class="texto">
+Gracias por ser mi San Valentín,
+por casi 10 años de historias,
+aprendizajes y amor verdadero.
 
-9 años y 3 meses caminando juntos,
-creciendo, aprendiendo,
-eligiéndonos todos los días.
+Llevamos 9 años y 3 meses
+eligiéndonos todos los días,
+y sé que lo más lindo
+aún está por venir.
+
+Pronto construiremos nuestro hogar,
+nuestro espacio,
+nuestros sueños juntos.
 
 Este árbol representa lo nuestro:
 raíces firmes,
 un tronco fuerte,
-y un amor que sigue floreciendo.
+y un amor que no deja de crecer.
 
 Gracias por quedarte,
 por amar,
@@ -148,41 +168,72 @@ por ser hogar.
 Te amo hoy,
 mañana
 y siempre.
-    </div>
-
-    <div class="tree">
-        <div class="trunk"></div>
-        <div class="canopy" id="canopy"></div>
-    </div>
 </div>
 
+<div class="tiempo" id="tiempo"></div>
+
+<div class="tree">
+    <div class="trunk"></div>
+    <div class="canopy" id="canopy"></div>
+</div>
+
+<button onclick="document.getElementById('musica').play()">▶️ Reproducir música</button>
+</div>
+
+<audio id="musica" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/02/28/audio_4f2f7c5f48.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-// 🌳 GENERAR COPA CON FORMA DE ÁRBOL
+// ⏱ FECHA REAL DEL INICIO
+const inicio = new Date("2015-11-01T00:00:00");
+
+function actualizarTiempo() {
+    const ahora = new Date();
+    let diff = Math.floor((ahora - inicio) / 1000);
+
+    const segundos = diff % 60;
+    diff = Math.floor(diff / 60);
+    const minutos = diff % 60;
+    diff = Math.floor(diff / 60);
+    const horas = diff % 24;
+    diff = Math.floor(diff / 24);
+    const dias = diff % 30;
+    diff = Math.floor(diff / 30);
+    const meses = diff % 12;
+    const años = Math.floor(diff / 12);
+
+    document.getElementById("tiempo").textContent =
+    `${años} años · ${meses} meses · ${dias} días
+${horas}h ${minutos}m ${segundos}s`;
+}
+setInterval(actualizarTiempo, 1000);
+actualizarTiempo();
+
+// 🌳 COPA DEL ÁRBOL
 const canopy = document.getElementById("canopy");
-
-for (let i = 0; i < 90; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-
-    const angle = Math.random() * Math.PI * 2;
-    const radiusX = Math.random() * 80;
-    const radiusY = Math.random() * 65;
-
-    heart.style.left = 95 + Math.cos(angle) * radiusX + "px";
-    heart.style.top = 80 + Math.sin(angle) * radiusY + "px";
-
-    heart.style.animationDelay = Math.random() * 4 + "s";
-    canopy.appendChild(heart);
+for (let i = 0; i < 120; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    const a = Math.random() * Math.PI * 2;
+    const rx = Math.random() * 95;
+    const ry = Math.random() * 70;
+    h.style.left = 110 + Math.cos(a) * rx + "px";
+    h.style.top = 90 + Math.sin(a) * ry + "px";
+    h.style.background = `hsl(${350 + Math.random()*10},70%,60%)`;
+    canopy.appendChild(h);
 }
 
-// 💖 CORAZONES SUBIENDO
-for (let i = 0; i < 14; i++) {
-    const h = document.createElement("div");
-    h.className = "floating";
-    h.innerHTML = "❤️";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = 10 + Math.random() * 6 + "s";
-    document.body.appendChild(h);
+// 💕 EMOJIS LATERALES
+const emojis = ["❤️","😍"];
+for (let i = 0; i < 40; i++) {
+    const e = document.createElement("div");
+    e.className = "float";
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random() * 100 + "vw";
+    e.style.fontSize = 16 + Math.random()*18 + "px";
+    e.style.animationDuration = 10 + Math.random()*8 + "s";
+    document.body.appendChild(e);
 }
 </script>
 
