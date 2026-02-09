@@ -6,98 +6,104 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-    * {
-        box-sizing: border-box;
-        font-family: 'Arial', sans-serif;
-    }
+* {
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
 
-    body {
-        margin: 0;
-        background: linear-gradient(to top, #ff9a9e, #fad0c4);
-        overflow: hidden;
-        color: #fff;
-        text-align: center;
-    }
+body {
+    margin: 0;
+    background: linear-gradient(to top, #ff9a9e, #fad0c4);
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+}
 
-    .screen {
-        display: none;
-        width: 100vw;
-        height: 100vh;
-        padding: 20px;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
+.screen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
-    .active {
-        display: flex;
-    }
+.active {
+    display: flex;
+}
 
-    h1 {
-        font-size: 2.3em;
-        margin-bottom: 15px;
-        text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-    }
+h1 {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
 
-    p {
-        font-size: 1.1em;
-        max-width: 600px;
-    }
+p {
+    font-size: 1.05em;
+    max-width: 720px;
+    line-height: 1.6;
+}
 
-    button {
-        background: #ff4d6d;
-        border: none;
-        color: white;
-        padding: 12px 22px;
-        border-radius: 25px;
-        font-size: 1em;
-        margin: 10px;
-        cursor: pointer;
-        transition: transform 0.2s, background 0.2s;
-    }
+button {
+    background: #ff4d6d;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1em;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
 
-    button:hover {
-        transform: scale(1.05);
-        background: #ff1e4d;
-    }
+button:hover {
+    transform: scale(1.05);
+    background: #ff1e4d;
+}
 
-    .box {
-        background: rgba(255,255,255,0.15);
-        padding: 25px;
-        border-radius: 20px;
-        backdrop-filter: blur(6px);
-    }
+.box {
+    background: rgba(255,255,255,0.18);
+    padding: 30px;
+    border-radius: 25px;
+    backdrop-filter: blur(6px);
+}
 
-    .options button {
-        display: block;
-        width: 100%;
-        margin: 8px 0;
-    }
+.options button {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+}
 
-    #feedback {
-        margin-top: 15px;
-        font-size: 1.1em;
-        min-height: 30px;
-    }
+#feedback {
+    margin-top: 15px;
+    min-height: 30px;
+}
 
-    /* Emojis flotando */
-    .emoji {
-        position: absolute;
-        font-size: 22px;
-        animation: float 12s linear infinite;
-        opacity: 0.8;
-    }
+.counter {
+    font-size: 1.1em;
+    margin: 15px 0;
+    font-weight: bold;
+}
 
-    @keyframes float {
-        0% { transform: translateY(100vh); }
-        100% { transform: translateY(-10vh); }
-    }
+/* Emojis flotando */
+.emoji {
+    position: absolute;
+    font-size: 22px;
+    animation: float 12s linear infinite;
+    opacity: 0.85;
+}
+
+@keyframes float {
+    0% { transform: translateY(110vh); }
+    100% { transform: translateY(-10vh); }
+}
 </style>
 </head>
 
 <body>
 
-<!-- PANTALLA INICIAL -->
+<!-- INTRO -->
 <div id="intro" class="screen active">
     <div class="box">
         <h1>💖 Bienvenida 💖</h1>
@@ -112,7 +118,7 @@ veamos cuánto recuerdas de nosotros 😍
     </div>
 </div>
 
-<!-- JUEGO -->
+<!-- QUIZ -->
 <div id="quiz" class="screen">
     <div class="box">
         <h1 id="question"></h1>
@@ -124,115 +130,122 @@ veamos cuánto recuerdas de nosotros 😍
 <!-- FINAL -->
 <div id="final" class="screen">
     <div class="box">
-        <h1>Lo lograste 💖</h1>
+        <h1>💖 Nuestro tiempo juntos 💖</h1>
 
-        <p>Antes de seguir…<br>pon nuestra canción 🎶</p>
+        <div class="counter" id="counter"></div>
 
-        <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs', '_blank')">
-🎶 Reproducir nuestra canción
-        </button>
-
-        <p style="margin-top:20px;">
-Esto es solo el comienzo…<br>
-porque lo nuestro es infinito ❤️
+        <p>
+Todo este tiempo no ha sido casualidad.<br>
+Han sido años de risas, aprendizajes, errores, abrazos,
+momentos difíciles y otros inolvidables.
         </p>
 
         <p>
-Gracias por ser mi San Valentín<br>
-por casi <strong>10 años</strong>…<br>
-bueno 😅 9 años y 3 meses<br>
-y por todo lo que aún nos queda por vivir 💞
+Hoy miro hacia adelante y me siento profundamente ansioso
+por todo lo que se nos viene viviendo juntos 🏡❤️.
+Sé que no todo será fácil, que habrá dificultades,
+pero también sé con absoluta certeza
+que <strong>juntos siempre sabremos salir adelante</strong>.
         </p>
+
+        <p>
+Gracias por estar, por quedarte,
+por elegirme incluso en los días complicados.
+Nunca lo olvides:
+<strong>eres lo mejor que tengo en mi vida</strong>,
+mi lugar seguro, mi compañera,
+mi amor 💞
+        </p>
+
+        <p style="margin-top:20px;">
+Antes de seguir…<br>
+pon nuestra canción 🎶
+        </p>
+
+        <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs','_blank')">
+🎶 Reproducir nuestra canción
+        </button>
 
         <button onclick="location.reload()">Volver a ver 💕</button>
     </div>
 </div>
 
 <script>
-/* EMOJIS FLOTANDO */
+/* EMOJIS */
 const emojis = ["❤️","💖","😍","🌸","💘"];
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < 45; i++) {
     const e = document.createElement("div");
     e.className = "emoji";
     e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     e.style.left = Math.random() * 100 + "vw";
     e.style.animationDuration = 6 + Math.random() * 10 + "s";
-    e.style.fontSize = 16 + Math.random() * 20 + "px";
+    e.style.fontSize = 16 + Math.random() * 22 + "px";
     document.body.appendChild(e);
 }
 
-/* PREGUNTAS */
+/* QUIZ */
 const questions = [
-{
-q: "¿Dónde fue nuestro primer beso? 😘",
-o: ["En el metro", "En el Mall", "En el paradero de la micro"],
-c: 2
-},
-{
-q: "¿Cuáles son los 2 equipos de fútbol que sigo?",
-o: ["Colo Colo y Barcelona", "La U y Real Madrid", "Real Madrid y Unión San Felipe", "Ninguna de las anteriores"],
-c: 3
-},
-{
-q: "¿Cuál fue uno de los primeros regalos que te hice?",
-o: ["Una cartera", "Un cuadro de conejito", "Un ramo de flores"],
-c: 1
-},
-{
-q: "¿Cuáles son los nombres que elegimos para nuestros futuros hijos?",
-o: ["Christopher y Alana", "Milán y Mía", "Eustaquio y Brígida"],
-c: 1
-},
-{
-q: "¿Tú crees que me amas más que yo a ti?",
-o: ["Sí", "No"],
-c: 1
-}
+{ q:"¿Dónde fue nuestro primer beso? 😘", o:["En el metro","En el Mall","En el paradero de la micro"], c:2 },
+{ q:"¿Cuáles son los 2 equipos de fútbol que sigo?", o:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión San Felipe","Ninguna de las anteriores"], c:3 },
+{ q:"¿Cuál fue uno de los primeros regalos que te hice?", o:["Una cartera","Un cuadro de conejito","Un ramo de flores"], c:1 },
+{ q:"¿Cuáles son los nombres que elegimos para nuestros futuros hijos?", o:["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"], c:1 },
+{ q:"¿Tú crees que me amas más que yo a ti?", o:["Sí","No"], c:1 }
 ];
 
 let current = 0;
 
 function showQuestion() {
     const q = questions[current];
-    document.getElementById("question").textContent = q.q;
-    const opt = document.getElementById("options");
-    opt.innerHTML = "";
-    document.getElementById("feedback").textContent = "";
-
-    q.o.forEach((text, i) => {
-        const b = document.createElement("button");
-        b.textContent = text;
-        b.onclick = () => answer(i);
-        opt.appendChild(b);
+    question.textContent = q.q;
+    options.innerHTML = "";
+    feedback.textContent = "";
+    q.o.forEach((t,i)=>{
+        const b=document.createElement("button");
+        b.textContent=t;
+        b.onclick=()=>answer(i);
+        options.appendChild(b);
     });
 }
 
-function answer(i) {
-    const failMessages = [
+function answer(i){
+    const fails=[
         "No era esa… pero igual te amo 😘",
         "Que sopenca jajaja 🤭 pero te amo muche ❤️"
     ];
-
-    document.getElementById("feedback").textContent =
-        i === questions[current].c
-        ? "Correcto 🥰"
-        : failMessages[Math.floor(Math.random() * failMessages.length)];
-
-    setTimeout(() => {
+    feedback.textContent = i===questions[current].c ? "Correcto 🥰" : fails[Math.random()*fails.length|0];
+    setTimeout(()=>{
         current++;
-        if (current < questions.length) {
-            showQuestion();
-        } else {
-            nextScreen("final");
-        }
-    }, 1200);
+        current<questions.length ? showQuestion() : nextScreen("final");
+    },1200);
 }
 
-function nextScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+function nextScreen(id){
+    document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
-    if (id === "quiz") showQuestion();
+    if(id==="quiz") showQuestion();
 }
+
+/* CONTADOR REAL */
+const startDate = new Date(2015, 10, 14); // AJUSTA SI QUIERES (mes empieza en 0)
+
+function updateCounter(){
+    const now = new Date();
+    let diff = Math.floor((now - startDate) / 1000);
+
+    const years = 9;
+    const months = 3;
+
+    const days = Math.floor(diff / 86400) % 30;
+    const hours = Math.floor(diff / 3600) % 24;
+    const minutes = Math.floor(diff / 60) % 60;
+    const seconds = diff % 60;
+
+    counter.textContent =
+        `9 años · 3 meses · ${days} días · ${hours} horas · ${minutes} minutos · ${seconds} segundos`;
+}
+
+setInterval(updateCounter,1000);
+updateCounter();
 </script>
 
 </body>
