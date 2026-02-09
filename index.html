@@ -2,85 +2,90 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Para el amor</title>
+<title>Para Scarlett ❤️</title>
 
 <style>
-/* 🌈 FONDO */
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
     font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(to top, #ff9966, #ff5e62, #7b4397);
+    animation: sunset 8s ease-in-out forwards;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes sunset {
+    from { filter: brightness(1.1); }
+    to { filter: brightness(0.95); }
 }
 
-/* 📦 CONTENEDOR */
 .container {
-    background: rgba(255,255,255,0.85);
-    border-radius: 20px;
-    padding: 25px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 22px;
+    padding: 22px;
     width: 90%;
     max-width: 420px;
     text-align: center;
-    animation: fadeIn 2s ease;
+    animation: fadeIn 3s ease;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* 📝 TEXTO */
 h1 {
-    margin: 0;
     color: #b03060;
+    margin-bottom: 10px;
 }
 
-.contador {
-    margin-top: 15px;
-    font-size: 1.1rem;
+.texto {
+    font-size: 1.05rem;
     color: #4a2c2a;
+    line-height: 1.5;
     white-space: pre-line;
 }
 
 /* 🌳 ÁRBOL */
 .tree {
     position: relative;
-    width: 200px;
-    height: 230px;
-    margin: 20px auto 0;
+    width: 220px;
+    height: 260px;
+    margin: 20px auto 10px;
 }
 
 .trunk {
     position: absolute;
     bottom: 0;
     left: 50%;
-    width: 30px;
-    height: 70px;
-    background: #7b4a12;
+    width: 32px;
+    height: 90px;
+    background: linear-gradient(#8b5a2b, #5c3317);
     transform: translateX(-50%);
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
-/* ❤️ CORAZONES */
+/* 🌿 COPA DEL ÁRBOL */
+.canopy {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    width: 190px;
+    height: 160px;
+    transform: translateX(-50%);
+}
+
+/* ❤️ CORAZONES HOJAS */
 .heart {
     position: absolute;
     width: 14px;
     height: 14px;
-    background: red;
+    background: crimson;
     transform: rotate(45deg);
-    animation: float 6s ease-in-out infinite;
+    animation: pulse 4s ease-in-out infinite;
 }
 
 .heart::before,
@@ -89,32 +94,25 @@ h1 {
     position: absolute;
     width: 14px;
     height: 14px;
-    background: red;
+    background: crimson;
     border-radius: 50%;
 }
 
-.heart::before {
-    top: -7px;
-    left: 0;
+.heart::before { top: -7px; left: 0; }
+.heart::after { left: -7px; top: 0; }
+
+@keyframes pulse {
+    0% { transform: scale(1) rotate(45deg); opacity: 0.9; }
+    50% { transform: scale(1.15) rotate(45deg); opacity: 1; }
+    100% { transform: scale(1) rotate(45deg); opacity: 0.9; }
 }
 
-.heart::after {
-    left: -7px;
-    top: 0;
-}
-
-@keyframes float {
-    0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-    50% { transform: translateY(-12px) rotate(45deg); opacity: 0.9; }
-    100% { transform: translateY(0) rotate(45deg); opacity: 1; }
-}
-
-/* 💖 CORAZONES FLOTANTES DE FONDO */
+/* 💕 CORAZONES FLOTANTES */
 .floating {
     position: absolute;
     bottom: -20px;
-    font-size: 20px;
-    animation: rise 10s linear infinite;
+    font-size: 18px;
+    animation: rise 12s linear infinite;
     opacity: 0.6;
 }
 
@@ -128,58 +126,62 @@ h1 {
 <body>
 
 <div class="container">
-    <h1>Para el amor_</h1>
+    <h1>Para Scarlett ❤️</h1>
 
-    <div class="contador" id="contador"></div>
+    <div class="texto">
+Gracias por ser mi San Valentín
+por casi una década…
+
+9 años y 3 meses caminando juntos,
+creciendo, aprendiendo,
+eligiéndonos todos los días.
+
+Este árbol representa lo nuestro:
+raíces firmes,
+un tronco fuerte,
+y un amor que sigue floreciendo.
+
+Gracias por quedarte,
+por amar,
+por ser hogar.
+
+Te amo hoy,
+mañana
+y siempre.
+    </div>
 
     <div class="tree">
         <div class="trunk"></div>
+        <div class="canopy" id="canopy"></div>
     </div>
 </div>
 
 <script>
-// 🗓️ CAMBIA ESTA FECHA
-const inicioAmor = new Date("2025-02-20T20:00:00");
+// 🌳 GENERAR COPA CON FORMA DE ÁRBOL
+const canopy = document.getElementById("canopy");
 
-function actualizarContador() {
-    const ahora = new Date();
-    let diff = Math.floor((ahora - inicioAmor) / 1000);
+for (let i = 0; i < 90; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
 
-    const dias = Math.floor(diff / 86400);
-    diff %= 86400;
-    const horas = Math.floor(diff / 3600);
-    diff %= 3600;
-    const minutos = Math.floor(diff / 60);
-    const segundos = diff % 60;
+    const angle = Math.random() * Math.PI * 2;
+    const radiusX = Math.random() * 80;
+    const radiusY = Math.random() * 65;
 
-    document.getElementById("contador").textContent =
-`Mi amor por ti comenzó hace…
-${dias} días ${horas} horas
-${minutos} minutos ${segundos} segundos`;
+    heart.style.left = 95 + Math.cos(angle) * radiusX + "px";
+    heart.style.top = 80 + Math.sin(angle) * radiusY + "px";
+
+    heart.style.animationDelay = Math.random() * 4 + "s";
+    canopy.appendChild(heart);
 }
 
-setInterval(actualizarContador, 1000);
-actualizarContador();
-
-// 🌳 CORAZONES DEL ÁRBOL
-const tree = document.querySelector('.tree');
-for (let i = 0; i < 50; i++) {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.style.left = Math.random() * 170 + 'px';
-    heart.style.top = Math.random() * 120 + 'px';
-    heart.style.background = `hsl(${Math.random()*360},70%,60%)`;
-    heart.style.animationDelay = Math.random() * 5 + 's';
-    tree.appendChild(heart);
-}
-
-// 💕 CORAZONES FLOTANTES
-for (let i = 0; i < 15; i++) {
-    const h = document.createElement('div');
-    h.className = 'floating';
-    h.innerHTML = '❤️';
-    h.style.left = Math.random() * 100 + 'vw';
-    h.style.animationDuration = 8 + Math.random() * 6 + 's';
+// 💖 CORAZONES SUBIENDO
+for (let i = 0; i < 14; i++) {
+    const h = document.createElement("div");
+    h.className = "floating";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = 10 + Math.random() * 6 + "s";
     document.body.appendChild(h);
 }
 </script>
