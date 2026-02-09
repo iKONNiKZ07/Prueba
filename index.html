@@ -19,32 +19,56 @@ body {
     text-align: center;
 }
 
+/* PANTALLAS */
 .screen {
-    display: none;
+    position: absolute;
     width: 100vw;
     height: 100vh;
     padding: 20px;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+    pointer-events: none;
 }
 
-.active {
-    display: flex;
+.screen.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
+.box {
+    background: rgba(255,255,255,0.18);
+    padding: 30px;
+    border-radius: 25px;
+    backdrop-filter: blur(6px);
+    max-width: 750px;
+}
+
+/* TEXTO */
 h1 {
     font-size: 2.2em;
     margin-bottom: 15px;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    min-height: 1.3em;
 }
 
 p {
     font-size: 1.05em;
-    max-width: 720px;
     line-height: 1.6;
+    min-height: 1.3em;
 }
 
+.counter {
+    font-weight: bold;
+    margin: 15px 0;
+    min-height: 1.3em;
+}
+
+/* BOTONES */
 button {
     background: #ff4d6d;
     border: none;
@@ -54,21 +78,14 @@ button {
     font-size: 1em;
     margin: 10px;
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
+    transition: transform 0.2s;
 }
 
 button:hover {
     transform: scale(1.05);
-    background: #ff1e4d;
 }
 
-.box {
-    background: rgba(255,255,255,0.18);
-    padding: 30px;
-    border-radius: 25px;
-    backdrop-filter: blur(6px);
-}
-
+/* QUIZ */
 .options button {
     display: block;
     width: 100%;
@@ -80,13 +97,7 @@ button:hover {
     min-height: 30px;
 }
 
-.counter {
-    font-size: 1.1em;
-    margin: 15px 0;
-    font-weight: bold;
-}
-
-/* Emojis flotando */
+/* EMOJIS */
 .emoji {
     position: absolute;
     font-size: 22px;
@@ -111,8 +122,7 @@ button:hover {
 Bienvenida a este entretenido juego que hice por nuestro  
 <strong>14 de febrero</strong> 🌹💘  
 <br><br>
-Antes de llegar al final…  
-veamos cuánto recuerdas de nosotros 😍
+Veamos cuánto recuerdas de nosotros 😍
         </p>
         <button onclick="nextScreen('quiz')">Empezar 💕</button>
     </div>
@@ -130,37 +140,12 @@ veamos cuánto recuerdas de nosotros 😍
 <!-- FINAL -->
 <div id="final" class="screen">
     <div class="box">
-        <h1>💖 Nuestro tiempo juntos 💖</h1>
-
+        <h1 id="finalTitle"></h1>
         <div class="counter" id="counter"></div>
 
-        <p>
-Todo este tiempo no ha sido casualidad.<br>
-Han sido años de risas, aprendizajes, errores, abrazos,
-momentos difíciles y otros inolvidables.
-        </p>
-
-        <p>
-Hoy miro hacia adelante y me siento profundamente ansioso
-por todo lo que se nos viene viviendo juntos 🏡❤️.
-Sé que no todo será fácil, que habrá dificultades,
-pero también sé con absoluta certeza
-que <strong>juntos siempre sabremos salir adelante</strong>.
-        </p>
-
-        <p>
-Gracias por estar, por quedarte,
-por elegirme incluso en los días complicados.
-Nunca lo olvides:
-<strong>eres lo mejor que tengo en mi vida</strong>,
-mi lugar seguro, mi compañera,
-mi amor 💞
-        </p>
-
-        <p style="margin-top:20px;">
-Antes de seguir…<br>
-pon nuestra canción 🎶
-        </p>
+        <p id="text1"></p>
+        <p id="text2"></p>
+        <p id="text3"></p>
 
         <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs','_blank')">
 🎶 Reproducir nuestra canción
@@ -172,34 +157,33 @@ pon nuestra canción 🎶
 
 <script>
 /* EMOJIS */
-const emojis = ["❤️","💖","😍","🌸","💘"];
-for (let i = 0; i < 45; i++) {
-    const e = document.createElement("div");
-    e.className = "emoji";
-    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    e.style.left = Math.random() * 100 + "vw";
-    e.style.animationDuration = 6 + Math.random() * 10 + "s";
-    e.style.fontSize = 16 + Math.random() * 22 + "px";
+const emojis=["❤️","💖","😍","🌸","💘"];
+for(let i=0;i<45;i++){
+    const e=document.createElement("div");
+    e.className="emoji";
+    e.textContent=emojis[Math.random()*emojis.length|0];
+    e.style.left=Math.random()*100+"vw";
+    e.style.animationDuration=6+Math.random()*10+"s";
+    e.style.fontSize=16+Math.random()*22+"px";
     document.body.appendChild(e);
 }
 
 /* QUIZ */
-const questions = [
-{ q:"¿Dónde fue nuestro primer beso? 😘", o:["En el metro","En el Mall","En el paradero de la micro"], c:2 },
-{ q:"¿Cuáles son los 2 equipos de fútbol que sigo?", o:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión San Felipe","Ninguna de las anteriores"], c:3 },
-{ q:"¿Cuál fue uno de los primeros regalos que te hice?", o:["Una cartera","Un cuadro de conejito","Un ramo de flores"], c:1 },
-{ q:"¿Cuáles son los nombres que elegimos para nuestros futuros hijos?", o:["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"], c:1 },
-{ q:"¿Tú crees que me amas más que yo a ti?", o:["Sí","No"], c:1 }
+const questions=[
+{q:"¿Dónde fue nuestro primer beso? 😘",o:["En el metro","En el Mall","En el paradero de la micro"],c:2},
+{q:"¿Cuáles son los 2 equipos de fútbol que sigo?",o:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión San Felipe","Ninguna de las anteriores"],c:3},
+{q:"¿Cuál fue uno de los primeros regalos que te hice?",o:["Una cartera","Un cuadro de conejito","Un ramo de flores"],c:1},
+{q:"¿Cuáles son los nombres que elegimos para nuestros futuros hijos?",o:["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"],c:1},
+{q:"¿Tú crees que me amas más que yo a ti?",o:["Sí","No"],c:1}
 ];
 
-let current = 0;
+let current=0;
 
-function showQuestion() {
-    const q = questions[current];
-    question.textContent = q.q;
-    options.innerHTML = "";
-    feedback.textContent = "";
-    q.o.forEach((t,i)=>{
+function showQuestion(){
+    question.textContent=questions[current].q;
+    options.innerHTML="";
+    feedback.textContent="";
+    questions[current].o.forEach((t,i)=>{
         const b=document.createElement("button");
         b.textContent=t;
         b.onclick=()=>answer(i);
@@ -212,40 +196,47 @@ function answer(i){
         "No era esa… pero igual te amo 😘",
         "Que sopenca jajaja 🤭 pero te amo muche ❤️"
     ];
-    feedback.textContent = i===questions[current].c ? "Correcto 🥰" : fails[Math.random()*fails.length|0];
+    feedback.textContent=i===questions[current].c?"Correcto 🥰":fails[Math.random()*fails.length|0];
     setTimeout(()=>{
         current++;
-        current<questions.length ? showQuestion() : nextScreen("final");
+        current<questions.length?showQuestion():nextScreen("final",startFinal);
     },1200);
 }
 
-function nextScreen(id){
+function nextScreen(id,cb){
     document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+    const el=document.getElementById(id);
+    el.classList.add("active");
+    if(cb) setTimeout(cb,800);
     if(id==="quiz") showQuestion();
 }
 
-/* CONTADOR REAL */
-const startDate = new Date(2015, 10, 14); // AJUSTA SI QUIERES (mes empieza en 0)
-
-function updateCounter(){
-    const now = new Date();
-    let diff = Math.floor((now - startDate) / 1000);
-
-    const years = 9;
-    const months = 3;
-
-    const days = Math.floor(diff / 86400) % 30;
-    const hours = Math.floor(diff / 3600) % 24;
-    const minutes = Math.floor(diff / 60) % 60;
-    const seconds = diff % 60;
-
-    counter.textContent =
-        `9 años · 3 meses · ${days} días · ${hours} horas · ${minutes} minutos · ${seconds} segundos`;
+/* TYPEWRITER */
+function typeWriter(el,text,speed=40){
+    let i=0;
+    el.textContent="";
+    const interval=setInterval(()=>{
+        el.textContent+=text.charAt(i);
+        i++;
+        if(i>=text.length) clearInterval(interval);
+    },speed);
 }
 
-setInterval(updateCounter,1000);
-updateCounter();
+/* FINAL */
+function startFinal(){
+    typeWriter(finalTitle,"💖 Nuestro tiempo juntos 💖",50);
+
+    setTimeout(()=>typeWriter(counter,"9 años · 3 meses · días · horas · minutos · segundos",35),1200);
+
+    setTimeout(()=>typeWriter(text1,
+        "Todo este tiempo no ha sido casualidad. Han sido años de risas, aprendizajes, abrazos y momentos que nos marcaron para siempre."),2600);
+
+    setTimeout(()=>typeWriter(text2,
+        "Estoy ansioso por todo lo que se nos viene viviendo juntos, por los desafíos, las dificultades y por cada paso que demos sabiendo que juntos siempre sabremos salir adelante."),5200);
+
+    setTimeout(()=>typeWriter(text3,
+        "Nunca lo olvides: eres lo mejor que tengo en mi vida. Mi compañera, mi hogar y mi amor ❤️"),8000);
+}
 </script>
 
 </body>
