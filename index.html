@@ -6,108 +6,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+*{
+    box-sizing:border-box;
+    font-family:'Arial',sans-serif;
 }
 
-body {
-    margin: 0;
-    background: linear-gradient(to top, #ff9a9e, #fad0c4);
-    overflow: hidden;
-    color: #fff;
-    text-align: center;
+/* 🌅 FONDO ATARDECER ANIMADO */
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    color:#fff;
+    background:linear-gradient(-45deg,#ff512f,#f09819,#ff9a9e,#845ec2);
+    background-size:400% 400%;
+    animation:sunset 18s ease infinite;
+}
+
+@keyframes sunset{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
 /* PANTALLAS */
-.screen {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease, transform 1s ease;
-    pointer-events: none;
+.screen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 1s ease,transform 1s ease;
+    pointer-events:none;
+    padding:20px;
 }
 
-.screen.active {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+.screen.active{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
 }
 
-.box {
-    background: rgba(255,255,255,0.18);
-    padding: 30px;
-    border-radius: 25px;
-    backdrop-filter: blur(6px);
-    max-width: 750px;
+/* CAJA OSCURA PARA CONTRASTE */
+.box{
+    background:rgba(0,0,0,0.45);
+    padding:30px;
+    border-radius:25px;
+    max-width:760px;
+    backdrop-filter:blur(6px);
 }
 
 /* TEXTO */
-h1 {
-    font-size: 2.2em;
-    margin-bottom: 15px;
-    min-height: 1.3em;
+h1{
+    font-size:2.2em;
+    margin-bottom:15px;
+    text-shadow:0 3px 10px rgba(0,0,0,.6);
+    min-height:1.4em;
 }
 
-p {
-    font-size: 1.05em;
-    line-height: 1.6;
-    min-height: 1.3em;
+p{
+    font-size:1.05em;
+    line-height:1.6;
+    text-shadow:0 2px 8px rgba(0,0,0,.6);
+    min-height:1.4em;
 }
 
-.counter {
-    font-weight: bold;
-    margin: 15px 0;
-    min-height: 1.3em;
+.counter{
+    font-weight:bold;
+    margin:15px 0;
+    text-shadow:0 2px 8px rgba(0,0,0,.6);
+    min-height:1.4em;
 }
 
 /* BOTONES */
-button {
-    background: #ff4d6d;
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-size: 1em;
-    margin: 10px;
-    cursor: pointer;
-    transition: transform 0.2s;
+button{
+    background:#ff4d6d;
+    border:none;
+    color:white;
+    padding:12px 24px;
+    border-radius:25px;
+    font-size:1em;
+    margin:10px;
+    cursor:pointer;
+    transition:transform .2s,background .2s;
 }
 
-button:hover {
-    transform: scale(1.05);
+button:hover{
+    transform:scale(1.05);
+    background:#ff1e4d;
 }
 
 /* QUIZ */
-.options button {
-    display: block;
-    width: 100%;
-    margin: 8px 0;
+.options button{
+    display:block;
+    width:100%;
+    margin:8px 0;
 }
 
-#feedback {
-    margin-top: 15px;
-    min-height: 30px;
+#feedback{
+    margin-top:15px;
+    min-height:30px;
 }
 
-/* EMOJIS */
-.emoji {
-    position: absolute;
-    font-size: 22px;
-    animation: float 12s linear infinite;
-    opacity: 0.85;
+/* EMOJIS FLOTANDO */
+.emoji{
+    position:absolute;
+    font-size:22px;
+    animation:float 12s linear infinite;
+    opacity:.9;
 }
 
-@keyframes float {
-    0% { transform: translateY(110vh); }
-    100% { transform: translateY(-10vh); }
+@keyframes float{
+    0%{transform:translateY(110vh)}
+    100%{transform:translateY(-10vh)}
 }
 </style>
 </head>
@@ -158,13 +172,13 @@ Veamos cuánto recuerdas de nosotros 😍
 <script>
 /* EMOJIS */
 const emojis=["❤️","💖","😍","🌸","💘"];
-for(let i=0;i<45;i++){
+for(let i=0;i<50;i++){
     const e=document.createElement("div");
     e.className="emoji";
     e.textContent=emojis[Math.random()*emojis.length|0];
     e.style.left=Math.random()*100+"vw";
     e.style.animationDuration=6+Math.random()*10+"s";
-    e.style.fontSize=16+Math.random()*22+"px";
+    e.style.fontSize=16+Math.random()*24+"px";
     document.body.appendChild(e);
 }
 
@@ -215,27 +229,41 @@ function nextScreen(id,cb){
 function typeWriter(el,text,speed=40){
     let i=0;
     el.textContent="";
-    const interval=setInterval(()=>{
+    const t=setInterval(()=>{
         el.textContent+=text.charAt(i);
         i++;
-        if(i>=text.length) clearInterval(interval);
+        if(i>=text.length) clearInterval(t);
     },speed);
+}
+
+/* CONTADOR REAL */
+const startDate=new Date(2015,10,14);
+
+function liveCounter(){
+    const now=new Date();
+    let diff=Math.floor((now-startDate)/1000);
+    const days=Math.floor(diff/86400)%30;
+    const hours=Math.floor(diff/3600)%24;
+    const minutes=Math.floor(diff/60)%60;
+    const seconds=diff%60;
+
+    counter.textContent=
+    `9 años · 3 meses · ${days} días · ${hours} horas · ${minutes} minutos · ${seconds} segundos`;
 }
 
 /* FINAL */
 function startFinal(){
     typeWriter(finalTitle,"💖 Nuestro tiempo juntos 💖",50);
-
-    setTimeout(()=>typeWriter(counter,"9 años · 3 meses · días · horas · minutos · segundos",35),1200);
+    setInterval(liveCounter,1000);
 
     setTimeout(()=>typeWriter(text1,
-        "Todo este tiempo no ha sido casualidad. Han sido años de risas, aprendizajes, abrazos y momentos que nos marcaron para siempre."),2600);
+    "Todo este tiempo no ha sido casualidad. Han sido años de risas, aprendizajes, abrazos y momentos que nos marcaron para siempre."),1500);
 
     setTimeout(()=>typeWriter(text2,
-        "Estoy ansioso por todo lo que se nos viene viviendo juntos, por los desafíos, las dificultades y por cada paso que demos sabiendo que juntos siempre sabremos salir adelante."),5200);
+    "Estoy ansioso por todo lo que se nos viene viviendo juntos, por las dificultades que enfrentaremos y porque sé que juntos siempre sabremos salir adelante."),4200);
 
     setTimeout(()=>typeWriter(text3,
-        "Nunca lo olvides: eres lo mejor que tengo en mi vida. Mi compañera, mi hogar y mi amor ❤️"),8000);
+    "Nunca lo olvides: eres lo mejor que tengo en mi vida, mi compañera, mi hogar y mi amor ❤️"),7200);
 }
 </script>
 
