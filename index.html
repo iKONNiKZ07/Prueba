@@ -140,8 +140,7 @@ font-size:18px;
 box-shadow:
 0 18px 40px rgba(255,80,120,.7),
 inset 0 3px 6px rgba(255,255,255,.5);
-text-shadow:
-0 2px 4px rgba(0,0,0,.5);
+text-shadow:0 2px 4px rgba(0,0,0,.5);
 cursor:pointer;
 }
 .option:hover{transform:scale(1.07)}
@@ -223,14 +222,18 @@ g.gain.value=.15;
 o.start();o.stop(ctx.currentTime+.25);
 }
 
-/* TRANSITION */
+/* 🔧 TRANSITION (BUG FIX) */
 function transition(cb){
-app.classList.add("fade-out");
-setTimeout(()=>{
-cb();
-app.classList.remove("fade-out");
-app.classList.add("fade-in");
-},450);
+  app.classList.remove("fade-in","fade-out");
+  void app.offsetWidth;
+  app.classList.add("fade-out");
+
+  setTimeout(()=>{
+    cb();
+    app.classList.remove("fade-out");
+    void app.offsetWidth;
+    app.classList.add("fade-in");
+  },450);
 }
 
 /* ENVELOPE */
@@ -255,10 +258,10 @@ app.innerHTML=`
 let grow=1;
 function growYes(){
 grow+=.3;
-document.querySelector("button").style.transform=\`scale(\${grow})\`;
+document.querySelector("button").style.transform=`scale(${grow})`;
 }
 
-/* INTRO GAME */
+/* INTRO */
 function introGame(){
 transition(()=>{
 app.innerHTML=`
@@ -283,7 +286,7 @@ function startGame(){showQ();}
 function showQ(){
 transition(()=>{
 const q=questions[idx];
-app.innerHTML=\`<h2 id="question">\${q.q}</h2>\`;
+app.innerHTML=`<h2 id="question">${q.q}</h2>`;
 q.o.forEach((t,i)=>{
 const b=document.createElement("div");
 b.className="option";
@@ -354,7 +357,7 @@ let h=now.getHours();
 let m=now.getMinutes();
 let s=now.getSeconds();
 document.getElementById("timer").textContent=
-\`\${d} días \${h}h \${m}m \${s}s\`;
+`${d} días ${h}h ${m}m ${s}s`;
 },1000);
 }
 
@@ -363,7 +366,7 @@ function typeText(t){
 let i=0;
 const el=document.getElementById("love");
 const int=setInterval(()=>{
-el.innerHTML=t.slice(0,i).replace(/\\n/g,"<br>")+"<span></span>";
+el.innerHTML=t.slice(0,i).replace(/\n/g,"<br>")+"<span></span>";
 i++;if(i>t.length)clearInterval(int);
 },45);
 }
