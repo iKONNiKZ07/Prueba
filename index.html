@@ -17,7 +17,7 @@ justify-content:center;
 overflow:hidden;
 }
 
-/* ---------- EMOJIS FLOTANDO ---------- */
+/* EMOJIS */
 .emoji{
 position:absolute;
 font-size:26px;
@@ -30,7 +30,7 @@ animation:float 8s linear infinite;
 100%{transform:translateY(-120vh);opacity:0}
 }
 
-/* ---------- CARDS ---------- */
+/* CARD */
 .card{
 background:linear-gradient(145deg,#fff,#ffe6ec);
 padding:40px;
@@ -39,7 +39,6 @@ width:90%;
 max-width:520px;
 text-align:center;
 box-shadow:0 35px 70px rgba(0,0,0,.35), inset 0 3px 10px rgba(255,255,255,.9);
-position:relative;
 animation:fadeIn 1s ease;
 }
 @keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1}}
@@ -58,9 +57,8 @@ animation:glow 3s infinite;
 50%{filter:drop-shadow(0 0 16px #ff85a1)}
 }
 
-/* ---------- BOTONES ---------- */
 button{
-margin-top:15px;
+margin-top:18px;
 padding:16px 28px;
 border:none;
 border-radius:40px;
@@ -74,12 +72,10 @@ transition:.3s;
 }
 button:hover{transform:scale(1.08)}
 
-/* ---------- OPCIONES ---------- */
 .option{
 display:block;
 margin:14px auto;
 padding:18px;
-width:100%;
 border-radius:40px;
 background:linear-gradient(135deg,#ff758f,#ff4d6d);
 color:white;
@@ -88,7 +84,7 @@ box-shadow:0 10px 25px rgba(255,80,120,.6);
 cursor:pointer;
 }
 
-/* ---------- FEEDBACK ---------- */
+/* FEEDBACK */
 .feedback{
 position:absolute;
 top:45%;
@@ -110,7 +106,7 @@ z-index:999;
 100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
 }
 
-/* ---------- SOBRE ---------- */
+/* SOBRE */
 .envelope{
 width:260px;height:160px;
 background:#f6c1cc;
@@ -124,7 +120,7 @@ margin:auto;
 }
 .heart{font-size:48px}
 
-/* ---------- TYPEWRITER ---------- */
+/* TYPEWRITER */
 .typewriter span{
 border-right:3px solid #ff4d6d;
 animation:blink 1s infinite;
@@ -142,7 +138,7 @@ animation:blink 1s infinite;
 </div>
 
 <script>
-/* ---------- EMOJIS ---------- */
+/* EMOJIS */
 setInterval(()=>{
 const e=document.createElement("div");
 e.className="emoji";
@@ -152,9 +148,9 @@ document.body.appendChild(e);
 setTimeout(()=>e.remove(),8000);
 },400);
 
-/* ---------- FLUJO ---------- */
 const app=document.getElementById("app");
 
+/* CARTA */
 function startEnvelope(){
 app.innerHTML=`
 <h2>Para ti, Scarlett 💌</h2>
@@ -167,7 +163,7 @@ app.innerHTML=`
 function openLetter(){
 app.innerHTML=`
 <h2>¿Quieres ser mi Valentín este año?</h2>
-<button onclick="startGame()">Sí 💖</button>
+<button onclick="introGame()">Sí 💖</button>
 <button onclick="growYes()">No 🙈</button>`;
 }
 
@@ -177,6 +173,21 @@ grow+=.3;
 document.querySelector("button").style.transform=`scale(${grow})`;
 }
 
+/* INTRO JUEGO */
+function introGame(){
+app.innerHTML=`
+<h2>Antes de continuar… 💕</h2>
+<p>
+Quise preparar algo distinto, algo nuestro.<br><br>
+Un pequeño juego con recuerdos, risas y amor,
+porque nadie nos conoce mejor que nosotros mismos.<br><br>
+Respira, sonríe… y prepárate ❤️
+</p>
+<button onclick="startGame()">Comenzar el juego 🎮💖</button>
+`;
+}
+
+/* JUEGO */
 const questions=[
 {q:"¿Dónde fue nuestro primer beso? 😘",o:["En el metro","En el Mall","En el paradero de la micro"],c:2},
 {q:"¿Qué equipos sigo?",o:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión San Felipe","Ninguna"],c:3},
@@ -215,6 +226,7 @@ idx<questions.length?showQ():finalMessage();
 },3000);
 }
 
+/* FINAL */
 function finalMessage(){
 const start=new Date();
 start.setFullYear(start.getFullYear()-9);
@@ -237,16 +249,24 @@ document.getElementById("timer").innerHTML=
 `9 años, 3 meses, ${days} días, ${h}h ${m}m ${s}s`;
 },1000);
 
-typeText("Estoy ansioso por todo lo que viene, por vivir juntos, enfrentar dificultades, crecer, y seguir eligiéndote cada día. Eres lo mejor que tengo en mi vida ❤️");
+typeText(
+"Te amo Scarlett. 💖\n\n" +
+"Estoy ansioso por todo lo que se nos viene: vivir juntos, compartir lo cotidiano, enfrentar dificultades y aprender de cada una de ellas.\n\n" +
+"Sé que no será siempre fácil, pero también sé que juntos podemos con todo.\n\n" +
+"Eres lo mejor que tengo en mi vida, mi lugar seguro, mi compañera.\n\n" +
+"Y sí… sé que estabas impaciente mirando con quién tanto hablaba estos días 😅,\n" +
+"pero en realidad estaba aquí, escribiendo cada línea de este código,\n" +
+"pensando en ti y en lo mucho que te amo. ❤️"
+);
 }
 
 function typeText(t){
 let i=0;
 const el=document.getElementById("love");
 const int=setInterval(()=>{
-el.innerHTML=t.slice(0,i)+"<span></span>";
+el.innerHTML=t.slice(0,i).replace(/\n/g,"<br>")+"<span></span>";
 i++;if(i>t.length)clearInterval(int);
-},50);
+},45);
 }
 </script>
 
