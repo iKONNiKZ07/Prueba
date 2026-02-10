@@ -2,269 +2,298 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>San Valentín 💖</title>
+<title>Para Scarlett 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{
-    box-sizing:border-box;
-    font-family:'Arial',sans-serif;
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to top, #ff9a9e, #fad0c4, #fbc2eb);
+  overflow: hidden;
+  color: white;
+  text-align: center;
 }
 
-/* 🌅 FONDO ATARDECER ANIMADO */
-body{
-    margin:0;
-    height:100vh;
-    overflow:hidden;
-    color:#fff;
-    background:linear-gradient(-45deg,#ff512f,#f09819,#ff9a9e,#845ec2);
-    background-size:400% 400%;
-    animation:sunset 18s ease infinite;
+section {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: fade 1.5s;
 }
 
-@keyframes sunset{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+section.active {
+  display: flex;
 }
 
-/* PANTALLAS */
-.screen{
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    opacity:0;
-    transform:translateY(20px);
-    transition:opacity 1s ease,transform 1s ease;
-    pointer-events:none;
-    padding:20px;
+@keyframes fade {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
-.screen.active{
-    opacity:1;
-    transform:translateY(0);
-    pointer-events:auto;
+/* Emojis flotando */
+.emoji {
+  position: absolute;
+  font-size: 24px;
+  animation: floatUp 10s linear infinite;
 }
 
-/* CAJA OSCURA PARA CONTRASTE */
-.box{
-    background:rgba(0,0,0,0.45);
-    padding:30px;
-    border-radius:25px;
-    max-width:760px;
-    backdrop-filter:blur(6px);
+@keyframes floatUp {
+  from {transform: translateY(100vh); opacity: 0;}
+  to {transform: translateY(-10vh); opacity: 1;}
 }
 
-/* TEXTO */
-h1{
-    font-size:2.2em;
-    margin-bottom:15px;
-    text-shadow:0 3px 10px rgba(0,0,0,.6);
-    min-height:1.4em;
+/* SOBRE */
+.envelope {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  cursor: pointer;
 }
 
-p{
-    font-size:1.05em;
-    line-height:1.6;
-    text-shadow:0 2px 8px rgba(0,0,0,.6);
-    min-height:1.4em;
+.envelope-front, .envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
-.counter{
-    font-weight:bold;
-    margin:15px 0;
-    text-shadow:0 2px 8px rgba(0,0,0,.6);
-    min-height:1.4em;
+.envelope-back {
+  background: #f3d5b5;
 }
 
-/* BOTONES */
-button{
-    background:#ff4d6d;
-    border:none;
-    color:white;
-    padding:12px 24px;
-    border-radius:25px;
-    font-size:1em;
-    margin:10px;
-    cursor:pointer;
-    transition:transform .2s,background .2s;
+.envelope-front {
+  background: linear-gradient(#f7d7a5, #f1c27d);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: transform 1s;
+  z-index: 3;
 }
 
-button:hover{
-    transform:scale(1.05);
-    background:#ff1e4d;
+.seal {
+  font-size: 40px;
+  animation: pulse 1.5s infinite;
 }
 
-/* QUIZ */
-.options button{
-    display:block;
-    width:100%;
-    margin:8px 0;
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.2);}
+  100% {transform: scale(1);}
 }
 
-#feedback{
-    margin-top:15px;
-    min-height:30px;
+.letter {
+  position: absolute;
+  background: white;
+  color: #333;
+  width: 260px;
+  height: 220px;
+  top: 10px;
+  left: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 1s;
+  z-index: 2;
 }
 
-/* EMOJIS FLOTANDO */
-.emoji{
-    position:absolute;
-    font-size:22px;
-    animation:float 12s linear infinite;
-    opacity:.9;
+.envelope.open .envelope-front {
+  transform: rotateX(180deg);
 }
 
-@keyframes float{
-    0%{transform:translateY(110vh)}
-    100%{transform:translateY(-10vh)}
+.envelope.open .letter {
+  transform: translateY(-140px);
+  opacity: 1;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background: #ff5fa2;
+  color: white;
+}
+
+#noBtn {
+  background: #ddd;
+}
+
+/* Juego */
+.answers button {
+  display: block;
+  width: 80%;
+  margin: 8px auto;
+}
+
+/* Final */
+.final-box {
+  background: rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 90%;
 }
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
-<div id="intro" class="screen active">
-    <div class="box">
-        <h1>💖 Bienvenida 💖</h1>
-        <p>
-Bienvenida a este entretenido juego que hice por nuestro  
-<strong>14 de febrero</strong> 🌹💘  
-<br><br>
-Veamos cuánto recuerdas de nosotros 😍
-        </p>
-        <button onclick="nextScreen('quiz')">Empezar 💕</button>
-    </div>
-</div>
+<!-- BIENVENIDA -->
+<section id="intro" class="active">
+  <h1>💖 Bienvenida 💖</h1>
+  <p>Bienvenida a este entretenido juego que hice por nuestro<br><strong>14 de febrero</strong> 💘🌹</p>
+  <button onclick="goTo('envelopeSection')">Empezar 💌</button>
+</section>
 
-<!-- QUIZ -->
-<div id="quiz" class="screen">
-    <div class="box">
-        <h1 id="question"></h1>
-        <div class="options" id="options"></div>
-        <div id="feedback"></div>
+<!-- SOBRE -->
+<section id="envelopeSection">
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="envelope-back"></div>
+    <div class="envelope-front">
+      <div class="seal">❤️</div>
+      <p>Toca el corazón</p>
     </div>
-</div>
+
+    <div class="letter">
+      <h3>💌 Para ti, Scarlett 💌</h3>
+      <p>¿Quieres ser mi Valentín este año? 💘🌹</p>
+      <button id="yesBtn" onclick="acceptValentine()">Sí 💖</button>
+      <button id="noBtn" onclick="rejectValentine()">No 😅</button>
+    </div>
+  </div>
+</section>
+
+<!-- JUEGO -->
+<section id="game">
+  <h2 id="question"></h2>
+  <div class="answers" id="answers"></div>
+</section>
 
 <!-- FINAL -->
-<div id="final" class="screen">
-    <div class="box">
-        <h1 id="finalTitle"></h1>
-        <div class="counter" id="counter"></div>
-
-        <p id="text1"></p>
-        <p id="text2"></p>
-        <p id="text3"></p>
-
-        <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs','_blank')">
-🎶 Reproducir nuestra canción
-        </button>
-
-        <button onclick="location.reload()">Volver a ver 💕</button>
-    </div>
-</div>
+<section id="final">
+  <div class="final-box">
+    <h2>💖 Nuestro amor 💖</h2>
+    <p id="time"></p>
+    <p id="loveText"></p>
+    <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs','_blank')">
+      🎶 Nuestra canción
+    </button>
+  </div>
+</section>
 
 <script>
-/* EMOJIS */
-const emojis=["❤️","💖","😍","🌸","💘"];
-for(let i=0;i<50;i++){
-    const e=document.createElement("div");
-    e.className="emoji";
-    e.textContent=emojis[Math.random()*emojis.length|0];
-    e.style.left=Math.random()*100+"vw";
-    e.style.animationDuration=6+Math.random()*10+"s";
-    e.style.fontSize=16+Math.random()*24+"px";
-    document.body.appendChild(e);
-}
-
-/* QUIZ */
-const questions=[
-{q:"¿Dónde fue nuestro primer beso? 😘",o:["En el metro","En el Mall","En el paradero de la micro"],c:2},
-{q:"¿Cuáles son los 2 equipos de fútbol que sigo?",o:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión San Felipe","Ninguna de las anteriores"],c:3},
-{q:"¿Cuál fue uno de los primeros regalos que te hice?",o:["Una cartera","Un cuadro de conejito","Un ramo de flores"],c:1},
-{q:"¿Cuáles son los nombres que elegimos para nuestros futuros hijos?",o:["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"],c:1},
-{q:"¿Tú crees que me amas más que yo a ti?",o:["Sí","No"],c:1}
+const questions = [
+  {
+    q: "¿Dónde fue nuestro primer beso? 😘",
+    a: ["En el metro", "En el Mall", "En el paradero de la micro"],
+    c: 2
+  },
+  {
+    q: "¿Cuáles son los 2 equipos de fútbol que sigo?",
+    a: ["Colo Colo y Barcelona", "La U y Real Madrid", "Real Madrid y Unión San Felipe", "Ninguna de las anteriores"],
+    c: 3
+  },
+  {
+    q: "¿Cuál fue uno de los primeros regalos que te hice?",
+    a: ["Una cartera", "Un cuadro de conejito", "Un ramo de flores"],
+    c: 1
+  },
+  {
+    q: "¿Cómo se llaman nuestros futuros hijos?",
+    a: ["Christopher y Alana", "Milán y Mía", "Eustaquio y Brígida"],
+    c: 1
+  },
+  {
+    q: "¿Crees que me amas más que yo a ti?",
+    a: ["Sí", "No"],
+    c: 1
+  }
 ];
 
-let current=0;
+let index = 0;
+let noScale = 1;
 
-function showQuestion(){
-    question.textContent=questions[current].q;
-    options.innerHTML="";
-    feedback.textContent="";
-    questions[current].o.forEach((t,i)=>{
-        const b=document.createElement("button");
-        b.textContent=t;
-        b.onclick=()=>answer(i);
-        options.appendChild(b);
-    });
+function goTo(id) {
+  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-function answer(i){
-    const fails=[
-        "No era esa… pero igual te amo 😘",
-        "Que sopenca jajaja 🤭 pero te amo muche ❤️"
-    ];
-    feedback.textContent=i===questions[current].c?"Correcto 🥰":fails[Math.random()*fails.length|0];
-    setTimeout(()=>{
-        current++;
-        current<questions.length?showQuestion():nextScreen("final",startFinal);
-    },1200);
+function openEnvelope() {
+  document.querySelector(".envelope").classList.add("open");
 }
 
-function nextScreen(id,cb){
-    document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-    const el=document.getElementById(id);
-    el.classList.add("active");
-    if(cb) setTimeout(cb,800);
-    if(id==="quiz") showQuestion();
+function acceptValentine() {
+  goTo("game");
+  loadQuestion();
 }
 
-/* TYPEWRITER */
-function typeWriter(el,text,speed=40){
-    let i=0;
-    el.textContent="";
-    const t=setInterval(()=>{
-        el.textContent+=text.charAt(i);
-        i++;
-        if(i>=text.length) clearInterval(t);
-    },speed);
+function rejectValentine() {
+  alert("😅 Que sopenca jajaja, pero te amo muche 💖");
+  noScale += 0.3;
+  document.getElementById("yesBtn").style.transform = `scale(${noScale})`;
 }
 
-/* CONTADOR REAL */
-const startDate=new Date(2015,10,14);
+function loadQuestion() {
+  if (index >= questions.length) {
+    goTo("final");
+    startTimer();
+    return;
+  }
 
-function liveCounter(){
-    const now=new Date();
-    let diff=Math.floor((now-startDate)/1000);
-    const days=Math.floor(diff/86400)%30;
-    const hours=Math.floor(diff/3600)%24;
-    const minutes=Math.floor(diff/60)%60;
-    const seconds=diff%60;
+  const q = questions[index];
+  document.getElementById("question").innerText = q.q;
+  const answers = document.getElementById("answers");
+  answers.innerHTML = "";
 
-    counter.textContent=
-    `9 años · 3 meses · ${days} días · ${hours} horas · ${minutes} minutos · ${seconds} segundos`;
+  q.a.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.innerText = text;
+    btn.onclick = () => {
+      if (i !== q.c) alert("😅 Casi… pero igual te amo 😘");
+      index++;
+      loadQuestion();
+    };
+    answers.appendChild(btn);
+  });
 }
 
-/* FINAL */
-function startFinal(){
-    typeWriter(finalTitle,"💖 Nuestro tiempo juntos 💖",50);
-    setInterval(liveCounter,1000);
+function startTimer() {
+  const start = new Date("2015-11-14T00:00:00");
+  setInterval(() => {
+    const now = new Date();
+    const diff = now - start;
 
-    setTimeout(()=>typeWriter(text1,
-    "Todo este tiempo no ha sido casualidad. Han sido años de risas, aprendizajes, abrazos y momentos que nos marcaron para siempre."),1500);
+    const s = Math.floor(diff / 1000) % 60;
+    const m = Math.floor(diff / (1000*60)) % 60;
+    const h = Math.floor(diff / (1000*60*60)) % 24;
+    const d = Math.floor(diff / (1000*60*60*24));
 
-    setTimeout(()=>typeWriter(text2,
-    "Estoy ansioso por todo lo que se nos viene viviendo juntos, por las dificultades que enfrentaremos y porque sé que juntos siempre sabremos salir adelante."),4200);
+    document.getElementById("time").innerText =
+      `Llevamos 9 años y 3 meses\n${d} días ${h} horas ${m} minutos ${s} segundos ❤️`;
 
-    setTimeout(()=>typeWriter(text3,
-    "Nunca lo olvides: eres lo mejor que tengo en mi vida, mi compañera, mi hogar y mi amor ❤️"),7200);
+    document.getElementById("loveText").innerText =
+      "Estoy ansioso por todo lo que se nos viene viviendo juntos, por las dificultades que enfrentaremos y porque sé que juntos siempre sabremos salir adelante. Nunca olvides que eres lo mejor que tengo en mi vida 💖";
+  }, 1000);
 }
+
+/* Emojis */
+setInterval(() => {
+  const e = document.createElement("div");
+  e.className = "emoji";
+  e.style.left = Math.random() * 100 + "vw";
+  e.innerText = Math.random() > 0.5 ? "❤️" : "😍";
+  document.body.appendChild(e);
+  setTimeout(() => e.remove(), 10000);
+}, 500);
 </script>
 
 </body>
