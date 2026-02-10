@@ -1,308 +1,207 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Para Scarlett 💖</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Para ti 💖</title>
 
 <style>
+/* ---------- FONDO ATARDECER ---------- */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to top, #ff9a9e, #fad0c4, #fbc2eb);
-  overflow: hidden;
-  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  background: linear-gradient(180deg, #ff9a9e, #fad0c4, #fbc2eb);
+  background-size: 400% 400%;
+  animation: sunset 12s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes sunset {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------- CONTENEDOR ---------- */
+.container {
+  width: 90%;
+  max-width: 420px;
   text-align: center;
 }
 
-section {
-  display: none;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  animation: fade 1.5s;
-}
-
-section.active {
-  display: flex;
-}
-
-@keyframes fade {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-/* Emojis flotando */
-.emoji {
-  position: absolute;
-  font-size: 24px;
-  animation: floatUp 10s linear infinite;
-}
-
-@keyframes floatUp {
-  from {transform: translateY(100vh); opacity: 0;}
-  to {transform: translateY(-10vh); opacity: 1;}
-}
-
-/* SOBRE */
-.envelope {
-  position: relative;
-  width: 300px;
-  height: 200px;
-}
-
-.envelope-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #f3d5b5;
-  border-radius: 10px;
-}
-
-.envelope-front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(#f7d7a5, #f1c27d);
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  transition: transform 1s ease, opacity 1s ease;
-  z-index: 3;
-  cursor: pointer;
-}
-
-.seal {
-  font-size: 40px;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% {transform: scale(1);}
-  50% {transform: scale(1.2);}
-  100% {transform: scale(1);}
-}
-
-.letter {
-  position: absolute;
-  background: white;
-  color: #333;
-  width: 260px;
-  height: 230px;
-  top: 10px;
-  left: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  transform: translateY(60px);
-  opacity: 0;
-  transition: all 1s ease;
-  z-index: 2;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-/* ANIMACIÓN CORREGIDA */
-.envelope.open .envelope-front {
-  transform: translateY(130px);
-  opacity: 0;
-}
-
-.envelope.open .letter {
-  transform: translateY(-160px);
-  opacity: 1;
-}
-
-button {
-  padding: 10px 20px;
+/* ---------- TARJETAS 3D ---------- */
+.card {
+  background: linear-gradient(145deg, #ffffff, #f1f1f1);
+  padding: 25px;
   border-radius: 20px;
-  border: none;
-  font-size: 16px;
-  margin: 10px;
-  cursor: pointer;
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.15),
+    inset 0 2px 5px rgba(255,255,255,0.8);
+  transform: perspective(800px) rotateX(2deg);
 }
 
-#yesBtn {
-  background: #ff5fa2;
+/* ---------- TEXTO ---------- */
+h1 {
+  margin: 0;
+  color: #d6336c;
+}
+
+p {
+  font-size: 18px;
+  color: #333;
+  min-height: 70px;
+}
+
+/* ---------- BOTONES ---------- */
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 10px;
+  transition: all 0.3s ease;
+}
+
+.start {
+  background: linear-gradient(145deg, #ff6b81, #ff4757);
+  color: white;
+  box-shadow: 0 6px 15px rgba(255,71,87,0.5);
+}
+
+.yes {
+  background: #38d9a9;
   color: white;
 }
 
-#noBtn {
-  background: #ddd;
+.no {
+  background: #adb5bd;
+  color: white;
 }
 
-/* Juego */
-.answers button {
-  display: block;
-  width: 85%;
-  margin: 8px auto;
+/* ---------- SOBRE ---------- */
+.envelope {
+  margin-top: 25px;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(145deg, #f1c27d, #e0ac69);
+  border-radius: 20px;
+  position: relative;
+  box-shadow: inset 0 3px 6px rgba(255,255,255,0.6),
+              0 10px 20px rgba(0,0,0,0.2);
+  overflow: hidden;
 }
 
-/* Final */
-.final-box {
-  background: rgba(0,0,0,0.4);
-  padding: 25px;
-  border-radius: 18px;
-  max-width: 90%;
+.seal {
+  width: 60px;
+  height: 60px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.seal::after {
+  content: "❤️";
+  font-size: 30px;
+  position: absolute;
+  top: 13px;
+  left: 15px;
+}
+
+/* ---------- CARTA ---------- */
+.letter {
+  position: absolute;
+  bottom: -100%;
+  left: 10%;
+  width: 80%;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transition: bottom 1s ease;
+}
+
+.letter.show {
+  bottom: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BIENVENIDA -->
-<section id="intro" class="active">
-  <h1>💖 Bienvenida 💖</h1>
-  <p>
-    Bienvenida a este entretenido juego que hice por nuestro  
-    <strong>14 de febrero</strong> 💘🌹
-  </p>
-  <button onclick="goTo('envelopeSection')">Empezar 💌</button>
-</section>
+<div class="container">
 
-<!-- SOBRE -->
-<section id="envelopeSection">
-  <div class="envelope">
-    <div class="envelope-back"></div>
+  <!-- PANTALLA INICIAL -->
+  <div id="intro" class="card">
+    <h1>💌 Hola, Scarlett 💌</h1>
+    <p id="typewriter"></p>
+    <button class="start" onclick="startGame()">Empezar</button>
+  </div>
 
-    <div class="envelope-front" onclick="openEnvelope()">
-      <div class="seal">❤️</div>
-      <p>Toca el corazón</p>
-    </div>
-
-    <div class="letter">
-      <h3>💌 Para ti, Scarlett 💌</h3>
-      <p>¿Quieres ser mi Valentín este año? 💘🌹</p>
-      <button id="yesBtn" onclick="acceptValentine()">Sí 💖</button>
-      <button id="noBtn" onclick="rejectValentine()">No 😅</button>
+  <!-- SOBRE -->
+  <div id="envelopeSection" style="display:none;">
+    <div class="envelope">
+      <div class="seal" onclick="openLetter()"></div>
+      <div class="letter" id="letter">
+        <h1>❤️ Para ti ❤️</h1>
+        <p>¿Quieres ser mi Valentín este año? 🌹</p>
+        <button class="yes" id="yesBtn" onclick="yes()">Sí</button>
+        <button class="no" id="noBtn" onclick="no()">No</button>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- JUEGO -->
-<section id="game">
-  <h2 id="question"></h2>
-  <div class="answers" id="answers"></div>
-</section>
-
-<!-- FINAL -->
-<section id="final">
-  <div class="final-box">
-    <h2>💖 Nuestro amor 💖</h2>
-    <p id="time"></p>
-    <p id="loveText"></p>
-    <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs','_blank')">
-      🎶 Nuestra canción
-    </button>
-  </div>
-</section>
+</div>
 
 <script>
-const questions = [
-  {
-    q: "¿Dónde fue nuestro primer beso? 😘",
-    a: ["En el metro", "En el Mall", "En el paradero de la micro"],
-    c: 2
-  },
-  {
-    q: "¿Cuáles son los 2 equipos de fútbol que sigo?",
-    a: ["Colo Colo y Barcelona", "La U y Real Madrid", "Real Madrid y Unión San Felipe", "Ninguna de las anteriores"],
-    c: 3
-  },
-  {
-    q: "¿Cuál fue uno de los primeros regalos que te hice?",
-    a: ["Una cartera", "Un cuadro de conejito", "Un ramo de flores"],
-    c: 1
-  },
-  {
-    q: "¿Cómo se llaman nuestros futuros hijos?",
-    a: ["Christopher y Alana", "Milán y Mía", "Eustaquio y Brígida"],
-    c: 1
-  },
-  {
-    q: "¿Crees que me amas más que yo a ti?",
-    a: ["Sí", "No"],
-    c: 1
+/* ---------- MAQUINA DE ESCRIBIR ---------- */
+const text = "Antes de empezar este pequeño juego, quiero decirte algo...\nEsto no es solo una página, es una forma distinta de decir lo que siento 💖";
+let i = 0;
+
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typewriter").innerHTML +=
+      text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 45);
   }
-];
+}
+typeWriter();
 
-let index = 0;
-let noScale = 1;
-
-function goTo(id) {
-  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+/* ---------- FLUJOS ---------- */
+function startGame() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("envelopeSection").style.display = "block";
 }
 
-function openEnvelope() {
-  document.querySelector(".envelope").classList.add("open");
+function openLetter() {
+  document.getElementById("letter").classList.add("show");
 }
 
-function acceptValentine() {
-  goTo("game");
-  loadQuestion();
+/* ---------- EASTER EGG ---------- */
+let scaleYes = 1;
+let scaleNo = 1;
+
+function no() {
+  scaleYes += 0.25;
+  scaleNo -= 0.15;
+  document.getElementById("yesBtn").style.transform = `scale(${scaleYes})`;
+  document.getElementById("noBtn").style.transform = `scale(${Math.max(scaleNo,0.3)})`;
 }
 
-function rejectValentine() {
-  alert("😅 Que sopenca jajaja, pero te amo muche 💖");
-  noScale += 0.3;
-  document.getElementById("yesBtn").style.transform = `scale(${noScale})`;
+function yes() {
+  document.body.innerHTML = "<h1 style='color:white;text-align:center;'>💖 Sabía que dirías que sí 💖</h1>";
 }
-
-function loadQuestion() {
-  if (index >= questions.length) {
-    goTo("final");
-    startTimer();
-    return;
-  }
-
-  const q = questions[index];
-  document.getElementById("question").innerText = q.q;
-  const answers = document.getElementById("answers");
-  answers.innerHTML = "";
-
-  q.a.forEach((text, i) => {
-    const btn = document.createElement("button");
-    btn.innerText = text;
-    btn.onclick = () => {
-      if (i !== q.c) alert("😅 Casi… pero igual te amo 😘");
-      index++;
-      loadQuestion();
-    };
-    answers.appendChild(btn);
-  });
-}
-
-function startTimer() {
-  const start = new Date("2015-11-14T00:00:00");
-  setInterval(() => {
-    const now = new Date();
-    const diff = now - start;
-
-    const s = Math.floor(diff / 1000) % 60;
-    const m = Math.floor(diff / (1000*60)) % 60;
-    const h = Math.floor(diff / (1000*60*60)) % 24;
-    const d = Math.floor(diff / (1000*60*60*24));
-
-    document.getElementById("time").innerText =
-      `9 años y 3 meses\n${d} días ${h} horas ${m} minutos ${s} segundos ❤️`;
-
-    document.getElementById("loveText").innerText =
-      "Estoy ansioso por los momentos que se nos vienen viviendo juntos, por las dificultades que enfrentaremos y porque sé que sabremos salir adelante de cualquier cosa. Nunca olvides que eres lo mejor que tengo en mi vida 💖";
-  }, 1000);
-}
-
-/* Emojis */
-setInterval(() => {
-  const e = document.createElement("div");
-  e.className = "emoji";
-  e.style.left = Math.random() * 100 + "vw";
-  e.innerText = Math.random() > 0.5 ? "❤️" : "😍";
-  document.body.appendChild(e);
-  setTimeout(() => e.remove(), 10000);
-}, 500);
 </script>
 
 </body>
 </html>
+
