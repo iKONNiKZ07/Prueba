@@ -1,207 +1,309 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Para ti 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Scarlett ❤️</title>
 
 <style>
-/* ---------- FONDO ATARDECER ---------- */
+* {
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  height: 100vh;
-  background: linear-gradient(180deg, #ff9a9e, #fad0c4, #fbc2eb);
-  background-size: 400% 400%;
-  animation: sunset 12s ease infinite;
+  min-height: 100vh;
+  background: linear-gradient(180deg,#ffb3c6,#ff758f,#ff9a76);
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-@keyframes sunset {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 1.2s ease;
 }
 
-/* ---------- CONTENEDOR ---------- */
-.container {
-  width: 90%;
-  max-width: 420px;
-  text-align: center;
+.screen.active {
+  display: flex;
 }
 
-/* ---------- TARJETAS 3D ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .card {
-  background: linear-gradient(145deg, #ffffff, #f1f1f1);
-  padding: 25px;
+  background: rgba(255,255,255,0.92);
+  padding: 35px;
   border-radius: 20px;
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.15),
-    inset 0 2px 5px rgba(255,255,255,0.8);
-  transform: perspective(800px) rotateX(2deg);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+  transform: perspective(800px) rotateX(3deg);
 }
 
-/* ---------- TEXTO ---------- */
-h1 {
-  margin: 0;
-  color: #d6336c;
+h1, h2, p {
+  margin-bottom: 20px;
 }
 
-p {
-  font-size: 18px;
-  color: #333;
-  min-height: 70px;
-}
-
-/* ---------- BOTONES ---------- */
 button {
+  padding: 14px 22px;
   border: none;
   border-radius: 30px;
-  padding: 14px 28px;
-  font-size: 18px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
   margin: 10px;
-  transition: all 0.3s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
-.start {
-  background: linear-gradient(145deg, #ff6b81, #ff4757);
-  color: white;
-  box-shadow: 0 6px 15px rgba(255,71,87,0.5);
+button:hover {
+  transform: scale(1.08);
 }
 
-.yes {
-  background: #38d9a9;
-  color: white;
+.heart-float {
+  position: absolute;
+  bottom: -40px;
+  animation: floatUp linear forwards;
+  opacity: 0.8;
 }
 
-.no {
-  background: #adb5bd;
-  color: white;
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-120vh); opacity: 0; }
 }
 
-/* ---------- SOBRE ---------- */
 .envelope {
-  margin-top: 25px;
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(145deg, #f1c27d, #e0ac69);
-  border-radius: 20px;
+  width: 260px;
+  height: 180px;
+  background: #ffd6a5;
+  border-radius: 12px;
   position: relative;
-  box-shadow: inset 0 3px 6px rgba(255,255,255,0.6),
-              0 10px 20px rgba(0,0,0,0.2);
-  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#ffd6a5,#ffb703);
+  clip-path: polygon(0 0,100% 0,50% 50%);
 }
 
 .seal {
-  width: 60px;
-  height: 60px;
-  background: red;
-  border-radius: 50%;
   position: absolute;
-  top: 70px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  font-size: 36px;
 }
 
-.seal::after {
-  content: "❤️";
-  font-size: 30px;
-  position: absolute;
-  top: 13px;
-  left: 15px;
+.hidden {
+  display: none;
 }
 
-/* ---------- CARTA ---------- */
-.letter {
-  position: absolute;
-  bottom: -100%;
-  left: 10%;
-  width: 80%;
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  transition: bottom 1s ease;
+.typing {
+  border-right: 2px solid #ff4d6d;
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
-.letter.show {
-  bottom: 20px;
-}
 </style>
 </head>
-
 <body>
 
-<div class="container">
-
-  <!-- PANTALLA INICIAL -->
-  <div id="intro" class="card">
-    <h1>💌 Hola, Scarlett 💌</h1>
-    <p id="typewriter"></p>
-    <button class="start" onclick="startGame()">Empezar</button>
+<!-- INTRO -->
+<div class="screen active" id="intro">
+  <div class="card">
+    <h1>💘 Bienvenida 💘</h1>
+    <p>Preparé este entretenido juego con mucho amor  
+    por nuestro 14 de febrero 🌹❤️</p>
+    <button onclick="next('valentin')">Empezar 💕</button>
   </div>
+</div>
 
-  <!-- SOBRE -->
-  <div id="envelopeSection" style="display:none;">
-    <div class="envelope">
-      <div class="seal" onclick="openLetter()"></div>
-      <div class="letter" id="letter">
-        <h1>❤️ Para ti ❤️</h1>
-        <p>¿Quieres ser mi Valentín este año? 🌹</p>
-        <button class="yes" id="yesBtn" onclick="yes()">Sí</button>
-        <button class="no" id="noBtn" onclick="no()">No</button>
-      </div>
+<!-- SOBRE -->
+<div class="screen" id="valentin">
+  <div class="card">
+    <h2>Para ti, Scarlett 💌</h2>
+    <p>Apretá el corazón para abrir la carta ❤️</p>
+    <div class="envelope" onclick="openLetter()">
+      <div class="seal">❤️</div>
     </div>
   </div>
+</div>
 
+<!-- CARTA -->
+<div class="screen" id="letter">
+  <div class="card">
+    <h2>¿Quieres ser mi Valentín este año? 💕</h2>
+    <button onclick="next('game')">Sí 😍</button>
+    <button onclick="growYes()">No 😅</button>
+  </div>
+</div>
+
+<!-- JUEGO -->
+<div class="screen" id="game">
+  <div class="card">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="final">
+  <div class="card">
+    <h2>💖 Para Scarlett 💖</h2>
+    <p id="time"></p>
+    <p class="typing" id="finalText"></p>
+    <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs')">
+      🎶 Reproducir nuestra canción
+    </button>
+  </div>
 </div>
 
 <script>
-/* ---------- MAQUINA DE ESCRIBIR ---------- */
-const text = "Antes de empezar este pequeño juego, quiero decirte algo...\nEsto no es solo una página, es una forma distinta de decir lo que siento 💖";
-let i = 0;
+let screens = document.querySelectorAll('.screen');
 
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("typewriter").innerHTML +=
-      text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 45);
-  }
-}
-typeWriter();
-
-/* ---------- FLUJOS ---------- */
-function startGame() {
-  document.getElementById("intro").style.display = "none";
-  document.getElementById("envelopeSection").style.display = "block";
+function next(id) {
+  screens.forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
 function openLetter() {
-  document.getElementById("letter").classList.add("show");
+  next('letter');
 }
 
-/* ---------- EASTER EGG ---------- */
-let scaleYes = 1;
-let scaleNo = 1;
-
-function no() {
-  scaleYes += 0.25;
-  scaleNo -= 0.15;
-  document.getElementById("yesBtn").style.transform = `scale(${scaleYes})`;
-  document.getElementById("noBtn").style.transform = `scale(${Math.max(scaleNo,0.3)})`;
+let yesScale = 1;
+function growYes() {
+  yesScale += 0.3;
+  document.querySelector('#letter button').style.transform = `scale(${yesScale})`;
 }
 
-function yes() {
-  document.body.innerHTML = "<h1 style='color:white;text-align:center;'>💖 Sabía que dirías que sí 💖</h1>";
+const questions = [
+  {
+    q: "¿Dónde fue nuestro primer beso? 😘",
+    o: ["Metro","Mall","Paradero"],
+    c: 2
+  },
+  {
+    q: "¿Qué equipos sigo?",
+    o: ["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión SF","Ninguna"],
+    c: 3
+  },
+  {
+    q: "¿Uno de los primeros regalos?",
+    o: ["Cartera","Cuadro de conejito","Flores"],
+    c: 1
+  },
+  {
+    q: "Nombres de nuestros futuros hijos",
+    o: ["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"],
+    c: 1
+  },
+  {
+    q: "¿Me amas más que yo a ti?",
+    o: ["Sí","No"],
+    c: 1
+  }
+];
+
+let idx = 0;
+
+function showQuestion() {
+  if (idx >= questions.length) {
+    next('final');
+    startFinal();
+    return;
+  }
+  let q = questions[idx];
+  document.getElementById('question').innerText = q.q;
+  let opt = document.getElementById('options');
+  opt.innerHTML = "";
+  q.o.forEach((text,i)=>{
+    let b = document.createElement('button');
+    b.innerText = text;
+    b.onclick = ()=> {
+      if (i !== q.c) alert("Que sopenca jajaja 🤭💔 pero te amo muche ❤️");
+      idx++;
+      showQuestion();
+    };
+    opt.appendChild(b);
+  });
+}
+
+showQuestion();
+
+const startDate = new Date("2015-11-01");
+
+function updateTime() {
+  let now = new Date();
+  let diff = now - startDate;
+  let s = Math.floor(diff/1000);
+  let m = Math.floor(s/60); s%=60;
+  let h = Math.floor(m/60); m%=60;
+  let d = Math.floor(h/24); h%=24;
+  let y = Math.floor(d/365);
+  d%=365;
+  document.getElementById('time').innerText =
+    `Llevamos ${y} años, ${d} días, ${h} horas, ${m} minutos y ${s} segundos ❤️`;
+}
+
+function startFinal() {
+  setInterval(updateTime,1000);
+  typeText();
+  hearts();
+}
+
+const text = `Gracias por ser mi San Valentín por casi una década.
+
+9 años y 3 meses caminando juntos,
+enfrentando dificultades,
+aprendiendo,
+creciendo.
+
+Estoy ansioso por todo lo que se nos viene viviendo juntos,
+sé que sabremos salir adelante de cualquier cosa.
+
+Eres lo mejor que tengo en mi vida.
+Te amo hoy, mañana y siempre. ❤️`;
+
+function typeText() {
+  let i = 0;
+  let el = document.getElementById('finalText');
+  let interval = setInterval(()=>{
+    el.innerText += text[i];
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  },45);
+}
+
+function hearts() {
+  setInterval(()=>{
+    let h = document.createElement('div');
+    h.className = 'heart-float';
+    h.innerText = Math.random()>0.5 ? "❤️" : "😍";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.fontSize = 20 + Math.random()*30 + "px";
+    h.style.animationDuration = 6 + Math.random()*6 + "s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),12000);
+  },400);
 }
 </script>
 
 </body>
 </html>
-
