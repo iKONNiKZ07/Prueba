@@ -6,119 +6,102 @@
 <title>Para Scarlett ❤️</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+*{box-sizing:border-box;font-family:'Arial',sans-serif}
+
+body{
+margin:0;
+min-height:100vh;
+background:linear-gradient(180deg,#ffb3c6,#ff758f,#ff9a76);
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(180deg,#ffb3c6,#ff758f,#ff9a76);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+justify-content:center;
+align-items:center;
+animation:fade 1.2s ease;
 }
 
-.screen {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  animation: fadeIn 1.2s ease;
+.screen.active{display:flex}
+
+@keyframes fade{
+from{opacity:0;transform:scale(.95)}
+to{opacity:1;transform:scale(1)}
 }
 
-.screen.active {
-  display: flex;
+.card{
+background:rgba(255,255,255,.95);
+padding:35px;
+border-radius:22px;
+width:90%;
+max-width:520px;
+text-align:center;
+box-shadow:0 30px 60px rgba(0,0,0,.25);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+button{
+padding:14px 26px;
+border:none;
+border-radius:30px;
+background:#ff4d6d;
+color:#fff;
+font-size:16px;
+cursor:pointer;
+margin:10px;
+transition:.3s;
+box-shadow:0 8px 20px rgba(0,0,0,.25);
 }
 
-.card {
-  background: rgba(255,255,255,0.92);
-  padding: 35px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-  transform: perspective(800px) rotateX(3deg);
+button:hover{transform:scale(1.1)}
+
+.heart-float{
+position:absolute;
+bottom:-40px;
+animation:floatUp linear forwards;
+opacity:.9;
 }
 
-h1, h2, p {
-  margin-bottom: 20px;
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-120vh);opacity:0}
 }
 
-button {
-  padding: 14px 22px;
-  border: none;
-  border-radius: 30px;
-  background: #ff4d6d;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 10px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+.envelope{
+width:260px;
+height:180px;
+background:#ffd6a5;
+border-radius:14px;
+position:relative;
+cursor:pointer;
+box-shadow:0 20px 35px rgba(0,0,0,.3);
 }
 
-button:hover {
-  transform: scale(1.08);
+.envelope::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:linear-gradient(#ffd6a5,#ffb703);
+clip-path:polygon(0 0,100% 0,50% 50%);
 }
 
-.heart-float {
-  position: absolute;
-  bottom: -40px;
-  animation: floatUp linear forwards;
-  opacity: 0.8;
+.seal{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+font-size:38px;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-120vh); opacity: 0; }
-}
-
-.envelope {
-  width: 260px;
-  height: 180px;
-  background: #ffd6a5;
-  border-radius: 12px;
-  position: relative;
-  cursor: pointer;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-}
-
-.envelope::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(#ffd6a5,#ffb703);
-  clip-path: polygon(0 0,100% 0,50% 50%);
-}
-
-.seal {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 36px;
-}
-
-.hidden {
-  display: none;
-}
-
-.typing {
-  border-right: 2px solid #ff4d6d;
-  white-space: pre-wrap;
-  overflow: hidden;
+.typing{
+white-space:pre-wrap;
+border-right:2px solid #ff4d6d;
 }
 
 </style>
@@ -127,181 +110,159 @@ button:hover {
 
 <!-- INTRO -->
 <div class="screen active" id="intro">
-  <div class="card">
-    <h1>💘 Bienvenida 💘</h1>
-    <p>Preparé este entretenido juego con mucho amor  
-    por nuestro 14 de febrero 🌹❤️</p>
-    <button onclick="next('valentin')">Empezar 💕</button>
-  </div>
+<div class="card">
+<h1>💘 Bienvenida 💘</h1>
+<p>Preparé este juego con mucho amor  
+por nuestro 14 de febrero 🌹❤️</p>
+<button onclick="go('valentin')">Empezar 💕</button>
+</div>
 </div>
 
 <!-- SOBRE -->
 <div class="screen" id="valentin">
-  <div class="card">
-    <h2>Para ti, Scarlett 💌</h2>
-    <p>Apretá el corazón para abrir la carta ❤️</p>
-    <div class="envelope" onclick="openLetter()">
-      <div class="seal">❤️</div>
-    </div>
-  </div>
+<div class="card">
+<h2>Para ti, Scarlett 💌</h2>
+<p>Apretá el corazón para abrir la carta ❤️</p>
+<div class="envelope" onclick="go('letter')">
+<div class="seal">❤️</div>
+</div>
+</div>
 </div>
 
 <!-- CARTA -->
 <div class="screen" id="letter">
-  <div class="card">
-    <h2>¿Quieres ser mi Valentín este año? 💕</h2>
-    <button onclick="next('game')">Sí 😍</button>
-    <button onclick="growYes()">No 😅</button>
-  </div>
+<div class="card">
+<h2>¿Quieres ser mi Valentín este año? 💕</h2>
+<button onclick="go('gameIntro')">Sí 😍</button>
+<button onclick="growYes()">No 😅</button>
+</div>
+</div>
+
+<!-- INTRO JUEGO -->
+<div class="screen" id="gameIntro">
+<div class="card">
+<h2>🎮 Comencemos el juego ❤️</h2>
+<p>Veamos cuánto recuerdas  
+de nuestra historia juntos 🥰</p>
+<button onclick="startGame()">Empezar preguntas 💖</button>
+</div>
 </div>
 
 <!-- JUEGO -->
 <div class="screen" id="game">
-  <div class="card">
-    <h2 id="question"></h2>
-    <div id="options"></div>
-  </div>
+<div class="card">
+<h2 id="question"></h2>
+<div id="options"></div>
+</div>
 </div>
 
 <!-- FINAL -->
 <div class="screen" id="final">
-  <div class="card">
-    <h2>💖 Para Scarlett 💖</h2>
-    <p id="time"></p>
-    <p class="typing" id="finalText"></p>
-    <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs')">
-      🎶 Reproducir nuestra canción
-    </button>
-  </div>
+<div class="card">
+<h2>💖 Para Scarlett 💖</h2>
+<p id="time"></p>
+<p id="finalText" class="typing"></p>
+<button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs')">
+🎶 Reproducir nuestra canción
+</button>
+</div>
 </div>
 
 <script>
-let screens = document.querySelectorAll('.screen');
-
-function next(id) {
-  screens.forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+const screens=document.querySelectorAll('.screen')
+function go(id){
+screens.forEach(s=>s.classList.remove('active'))
+document.getElementById(id).classList.add('active')
 }
 
-function openLetter() {
-  next('letter');
+let scale=1
+function growYes(){
+scale+=.3
+document.querySelector('#letter button').style.transform=`scale(${scale})`
 }
 
-let yesScale = 1;
-function growYes() {
-  yesScale += 0.3;
-  document.querySelector('#letter button').style.transform = `scale(${yesScale})`;
+const questions=[
+{q:"¿Dónde fue nuestro primer beso? 😘",o:["Metro","Mall","Paradero"],c:2},
+{q:"¿Qué equipos sigo?",o:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión SF","Ninguna"],c:3},
+{q:"¿Uno de los primeros regalos?",o:["Cartera","Cuadro de conejito","Flores"],c:1},
+{q:"Nombres de nuestros futuros hijos",o:["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"],c:1},
+{q:"¿Me amas más que yo a ti?",o:["Sí","No"],c:1}
+]
+
+let i=0
+function startGame(){
+go('game')
+showQ()
 }
 
-const questions = [
-  {
-    q: "¿Dónde fue nuestro primer beso? 😘",
-    o: ["Metro","Mall","Paradero"],
-    c: 2
-  },
-  {
-    q: "¿Qué equipos sigo?",
-    o: ["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión SF","Ninguna"],
-    c: 3
-  },
-  {
-    q: "¿Uno de los primeros regalos?",
-    o: ["Cartera","Cuadro de conejito","Flores"],
-    c: 1
-  },
-  {
-    q: "Nombres de nuestros futuros hijos",
-    o: ["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"],
-    c: 1
-  },
-  {
-    q: "¿Me amas más que yo a ti?",
-    o: ["Sí","No"],
-    c: 1
-  }
-];
-
-let idx = 0;
-
-function showQuestion() {
-  if (idx >= questions.length) {
-    next('final');
-    startFinal();
-    return;
-  }
-  let q = questions[idx];
-  document.getElementById('question').innerText = q.q;
-  let opt = document.getElementById('options');
-  opt.innerHTML = "";
-  q.o.forEach((text,i)=>{
-    let b = document.createElement('button');
-    b.innerText = text;
-    b.onclick = ()=> {
-      if (i !== q.c) alert("Que sopenca jajaja 🤭💔 pero te amo muche ❤️");
-      idx++;
-      showQuestion();
-    };
-    opt.appendChild(b);
-  });
+function showQ(){
+if(i>=questions.length){go('final');finalStart();return}
+let q=questions[i]
+question.innerText=q.q
+options.innerHTML=""
+q.o.forEach((t,n)=>{
+let b=document.createElement('button')
+b.innerText=t
+b.onclick=()=>{
+if(n!==q.c) alert("Que sopenca jajaja 🤭💔 pero te amo muche ❤️")
+i++;showQ()
+}
+options.appendChild(b)
+})
 }
 
-showQuestion();
+const startDate=new Date("2015-11-01")
 
-const startDate = new Date("2015-11-01");
-
-function updateTime() {
-  let now = new Date();
-  let diff = now - startDate;
-  let s = Math.floor(diff/1000);
-  let m = Math.floor(s/60); s%=60;
-  let h = Math.floor(m/60); m%=60;
-  let d = Math.floor(h/24); h%=24;
-  let y = Math.floor(d/365);
-  d%=365;
-  document.getElementById('time').innerText =
-    `Llevamos ${y} años, ${d} días, ${h} horas, ${m} minutos y ${s} segundos ❤️`;
+function updateTime(){
+let now=new Date()
+let diff=now-startDate
+let s=Math.floor(diff/1000)
+let m=Math.floor(s/60);s%=60
+let h=Math.floor(m/60);m%=60
+let d=Math.floor(h/24);h%=24
+let y=9
+d%=365
+time.innerText=`Llevamos ${y} años, 3 meses, ${d} días, ${h} horas, ${m} minutos y ${s} segundos ❤️`
 }
 
-function startFinal() {
-  setInterval(updateTime,1000);
-  typeText();
-  hearts();
+function finalStart(){
+setInterval(updateTime,1000)
+typeText()
+hearts()
 }
 
-const text = `Gracias por ser mi San Valentín por casi una década.
+const text=`Gracias por ser mi San Valentín por casi una década.
 
 9 años y 3 meses caminando juntos,
 enfrentando dificultades,
-aprendiendo,
-creciendo.
+creciendo y aprendiendo.
 
-Estoy ansioso por todo lo que se nos viene viviendo juntos,
-sé que sabremos salir adelante de cualquier cosa.
+Estoy ansioso por todo lo que se nos viene viviendo juntos.
+Sé que saldremos adelante de cualquier cosa.
 
 Eres lo mejor que tengo en mi vida.
-Te amo hoy, mañana y siempre. ❤️`;
+Te amo hoy, mañana y siempre. ❤️`
 
-function typeText() {
-  let i = 0;
-  let el = document.getElementById('finalText');
-  let interval = setInterval(()=>{
-    el.innerText += text[i];
-    i++;
-    if (i >= text.length) clearInterval(interval);
-  },45);
+function typeText(){
+let n=0
+let el=finalText
+let t=setInterval(()=>{
+el.innerText+=text[n];n++
+if(n>=text.length)clearInterval(t)
+},45)
 }
 
-function hearts() {
-  setInterval(()=>{
-    let h = document.createElement('div');
-    h.className = 'heart-float';
-    h.innerText = Math.random()>0.5 ? "❤️" : "😍";
-    h.style.left = Math.random()*100 + "vw";
-    h.style.fontSize = 20 + Math.random()*30 + "px";
-    h.style.animationDuration = 6 + Math.random()*6 + "s";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),12000);
-  },400);
+function hearts(){
+setInterval(()=>{
+let h=document.createElement('div')
+h.className='heart-float'
+h.innerText=Math.random()>.5?"❤️":"😍"
+h.style.left=Math.random()*100+"vw"
+h.style.fontSize=20+Math.random()*30+"px"
+h.style.animationDuration=6+Math.random()*6+"s"
+document.body.appendChild(h)
+setTimeout(()=>h.remove(),12000)
+},400)
 }
 </script>
 
