@@ -9,7 +9,7 @@
 *{
 box-sizing:border-box;
 font-family:'Poppins',system-ui;
-transition:all .5s ease;
+transition:all .45s ease;
 }
 
 body{
@@ -50,15 +50,25 @@ inset 0 4px 12px rgba(255,255,255,.9);
 animation:screenIn .6s ease;
 }
 
+.fade-out{
+opacity:0;
+transform:translateY(20px) scale(.97);
+pointer-events:none;
+}
+.fade-in{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
 @keyframes screenIn{
 from{opacity:0;transform:scale(.85)}
 to{opacity:1;transform:scale(1)}
 }
 
-/* TITULOS GRANDES */
+/* TITULOS */
 h1,h2,#question{
 font-weight:900;
-font-size:34px;
+font-size:36px;
 line-height:1.2;
 margin-bottom:20px;
 background:linear-gradient(90deg,#ff1e56,#ff758f,#ffb703);
@@ -66,12 +76,12 @@ background:linear-gradient(90deg,#ff1e56,#ff758f,#ffb703);
 -webkit-text-fill-color:transparent;
 text-shadow:
 0 3px 0 #fff,
-0 8px 16px rgba(0,0,0,.35),
-0 0 30px rgba(255,80,120,.9);
+0 8px 18px rgba(0,0,0,.35),
+0 0 35px rgba(255,80,120,.9);
 animation:glow 3s infinite;
 }
 
-#question{font-size:32px}
+#question{font-size:34px}
 
 p{
 font-size:16px;
@@ -108,13 +118,18 @@ box-shadow:0 12px 28px rgba(255,80,120,.6);
 cursor:pointer;
 }
 .option:hover{transform:scale(1.07)}
+.option.clicked{
+transform:scale(.95);
+opacity:.8;
+pointer-events:none;
+}
 
 /* FEEDBACK */
 .feedback{
 position:absolute;
 top:45%;
 left:50%;
-transform:translate(-50%,-50%) scale(1);
+transform:translate(-50%,-50%);
 background:rgba(255,255,255,.3);
 backdrop-filter:blur(16px);
 padding:24px 40px;
@@ -156,9 +171,12 @@ animation:blink 1s infinite;
 
 <body>
 
-<div id="app" class="card">
-<h1>💖 Bienvenida a este juego 💖</h1>
-<p>Hecho con amor para nuestro 14 de febrero 🌸</p>
+<div id="app" class="card fade-in">
+<h1>💖 Bienvenida señorita Scarlett Aguilera Purches 💖</h1>
+<p>
+A este juego hecho con tanto amor,<br>
+de mí para ti 🌸
+</p>
 <button onclick="startEnvelope()">Empezar</button>
 </div>
 
@@ -177,7 +195,6 @@ const app=document.getElementById("app");
 
 /* SONIDOS */
 const ctx=new (window.AudioContext||window.webkitAudioContext)();
-
 function sound(freq){
 const o=ctx.createOscillator();
 const g=ctx.createGain();
@@ -189,25 +206,35 @@ o.start();
 o.stop(ctx.currentTime+.25);
 }
 
+/* TRANSICIÓN GENERAL */
+function transition(cb){
+app.classList.add("fade-out");
+setTimeout(()=>{
+cb();
+app.classList.remove("fade-out");
+app.classList.add("fade-in");
+},450);
+}
+
 /* CARTA */
 function startEnvelope(){
-app.style.opacity=0;
-setTimeout(()=>{
+transition(()=>{
 app.innerHTML=`
 <h2>Para ti, Scarlett 💌</h2>
 <p>Toca el corazón para abrir la carta</p>
 <div class="envelope" onclick="openLetter()">
 <div class="heart">❤️</div>
 </div>`;
-app.style.opacity=1;
-},400);
+});
 }
 
 function openLetter(){
+transition(()=>{
 app.innerHTML=`
 <h2>¿Quieres ser mi Valentín este año?</h2>
 <button onclick="introGame()">Sí 💖</button>
 <button onclick="growYes()">No 🙈</button>`;
+});
 }
 
 let grow=1;
@@ -218,15 +245,18 @@ document.querySelector("button").style.transform=`scale(${grow})`;
 
 /* INTRO JUEGO */
 function introGame(){
+transition(()=>{
 app.innerHTML=`
 <h2>Antes de continuar… 💕</h2>
 <p>
-Preparé algo especial, algo nuestro.<br><br>
-Un pequeño juego con recuerdos, risas y amor.<br><br>
-Respira… sonríe… y prepárate ❤️
+Esto no es solo un juego.<br><br>
+Es un pedacito de nuestra historia,<br>
+hecho con tiempo, paciencia y mucho amor.<br><br>
+Prepárate… ❤️
 </p>
 <button onclick="startGame()">Comenzar el juego 🎮💖</button>
 `;
+});
 }
 
 /* JUEGO */
@@ -238,22 +268,28 @@ const questions=[
 {q:"¿Me amas más que yo a ti?",o:["Sí","No"],c:1}
 ];
 let idx=0;
+let locked=false;
 
 function startGame(){showQ();}
 
 function showQ(){
+transition(()=>{
 const q=questions[idx];
 app.innerHTML=`<h2 id="question">${q.q}</h2>`;
 q.o.forEach((t,i)=>{
 const b=document.createElement("div");
 b.className="option";
 b.textContent=t;
-b.onclick=()=>answer(i);
+b.onclick=()=>answer(i,b);
 app.appendChild(b);
+});
 });
 }
 
-function answer(i){
+function answer(i,btn){
+if(locked)return;
+locked=true;
+btn.classList.add("clicked");
 i===questions[idx].c?sound(880):sound(220);
 
 const f=document.createElement("div");
@@ -266,30 +302,38 @@ document.body.appendChild(f);
 setTimeout(()=>{
 f.remove();
 idx++;
+locked=false;
 idx<questions.length?showQ():finalMessage();
 },3000);
 }
 
 /* FINAL */
 function finalMessage(){
+transition(()=>{
 app.innerHTML=`
 <h2>💖 Nuestro tiempo juntos 💖</h2>
-<p id="timer"></p>
 <p class="typewriter" id="love"></p>
 <button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs')">
 Reproducir nuestra canción 🎶
 </button>
 `;
-
 typeText(
-"Te amo Scarlett. 💖\n\n" +
-"Eres lo mejor que tengo en mi vida.\n\n" +
-"Estaba ansioso escribiendo este código,\n" +
-"mientras tú pensabas con quién hablaba 😅,\n" +
-"cuando en realidad… eras tú todo el tiempo.\n\n" +
-"Gracias por existir, por amarme,\n" +
-"y por ser mi Valentín. ❤️"
+"Te amo Scarlett. 💖\n\n"+
+"Eres lo mejor que tengo en mi vida.\n\n"+
+"Estoy profundamente emocionado\n"+
+"por todo el proceso que se nos viene,\n"+
+"por los nuevos desafíos,\n"+
+"las aventuras que vamos a vivir\n"+
+"y todo lo que construiremos juntos.\n\n"+
+"Mientras tú pensabas con quién hablaba,\n"+
+"yo estaba aquí,\n"+
+"escribiendo cada línea de este código\n"+
+"pensando solo en ti.\n\n"+
+"Gracias por existir.\n"+
+"Gracias por amarme.\n"+
+"Feliz de que seas mi Valentín ❤️"
 );
+});
 }
 
 function typeText(t){
