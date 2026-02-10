@@ -8,7 +8,7 @@
 <style>
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   background: linear-gradient(to top, #ff9a9e, #fad0c4, #fbc2eb);
   overflow: hidden;
   color: white;
@@ -50,28 +50,29 @@ section.active {
   position: relative;
   width: 300px;
   height: 200px;
-  cursor: pointer;
-}
-
-.envelope-front, .envelope-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
 }
 
 .envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background: #f3d5b5;
+  border-radius: 10px;
 }
 
 .envelope-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(#f7d7a5, #f1c27d);
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  transition: transform 1s;
+  transition: transform 1s ease, opacity 1s ease;
   z-index: 3;
+  cursor: pointer;
 }
 
 .seal {
@@ -90,23 +91,26 @@ section.active {
   background: white;
   color: #333;
   width: 260px;
-  height: 220px;
+  height: 230px;
   top: 10px;
   left: 20px;
   padding: 15px;
-  border-radius: 8px;
-  transform: translateY(80px);
+  border-radius: 10px;
+  transform: translateY(60px);
   opacity: 0;
-  transition: all 1s;
+  transition: all 1s ease;
   z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
+/* ANIMACIÓN CORREGIDA */
 .envelope.open .envelope-front {
-  transform: rotateX(180deg);
+  transform: translateY(130px);
+  opacity: 0;
 }
 
 .envelope.open .letter {
-  transform: translateY(-140px);
+  transform: translateY(-160px);
   opacity: 1;
 }
 
@@ -131,15 +135,15 @@ button {
 /* Juego */
 .answers button {
   display: block;
-  width: 80%;
+  width: 85%;
   margin: 8px auto;
 }
 
 /* Final */
 .final-box {
   background: rgba(0,0,0,0.4);
-  padding: 20px;
-  border-radius: 15px;
+  padding: 25px;
+  border-radius: 18px;
   max-width: 90%;
 }
 </style>
@@ -150,15 +154,19 @@ button {
 <!-- BIENVENIDA -->
 <section id="intro" class="active">
   <h1>💖 Bienvenida 💖</h1>
-  <p>Bienvenida a este entretenido juego que hice por nuestro<br><strong>14 de febrero</strong> 💘🌹</p>
+  <p>
+    Bienvenida a este entretenido juego que hice por nuestro  
+    <strong>14 de febrero</strong> 💘🌹
+  </p>
   <button onclick="goTo('envelopeSection')">Empezar 💌</button>
 </section>
 
 <!-- SOBRE -->
 <section id="envelopeSection">
-  <div class="envelope" onclick="openEnvelope()">
+  <div class="envelope">
     <div class="envelope-back"></div>
-    <div class="envelope-front">
+
+    <div class="envelope-front" onclick="openEnvelope()">
       <div class="seal">❤️</div>
       <p>Toca el corazón</p>
     </div>
@@ -278,10 +286,10 @@ function startTimer() {
     const d = Math.floor(diff / (1000*60*60*24));
 
     document.getElementById("time").innerText =
-      `Llevamos 9 años y 3 meses\n${d} días ${h} horas ${m} minutos ${s} segundos ❤️`;
+      `9 años y 3 meses\n${d} días ${h} horas ${m} minutos ${s} segundos ❤️`;
 
     document.getElementById("loveText").innerText =
-      "Estoy ansioso por todo lo que se nos viene viviendo juntos, por las dificultades que enfrentaremos y porque sé que juntos siempre sabremos salir adelante. Nunca olvides que eres lo mejor que tengo en mi vida 💖";
+      "Estoy ansioso por los momentos que se nos vienen viviendo juntos, por las dificultades que enfrentaremos y porque sé que sabremos salir adelante de cualquier cosa. Nunca olvides que eres lo mejor que tengo en mi vida 💖";
   }, 1000);
 }
 
