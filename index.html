@@ -6,7 +6,12 @@
 <title>Para Scarlett ❤️</title>
 
 <style>
-*{box-sizing:border-box;font-family:'Poppins',system-ui}
+*{
+box-sizing:border-box;
+font-family:'Poppins',system-ui;
+transition:all .5s ease;
+}
+
 body{
 margin:0;
 min-height:100vh;
@@ -20,105 +25,125 @@ overflow:hidden;
 /* EMOJIS */
 .emoji{
 position:absolute;
-font-size:26px;
+font-size:28px;
 opacity:.7;
 animation:float 8s linear infinite;
+pointer-events:none;
 }
 @keyframes float{
-0%{transform:translateY(100vh);opacity:0}
+0%{transform:translateY(100vh) scale(.6);opacity:0}
 10%{opacity:1}
-100%{transform:translateY(-120vh);opacity:0}
+100%{transform:translateY(-120vh) scale(1.2);opacity:0}
 }
 
 /* CARD */
 .card{
 background:linear-gradient(145deg,#fff,#ffe6ec);
-padding:40px;
-border-radius:32px;
+padding:45px;
+border-radius:34px;
 width:90%;
-max-width:520px;
+max-width:540px;
 text-align:center;
-box-shadow:0 35px 70px rgba(0,0,0,.35), inset 0 3px 10px rgba(255,255,255,.9);
-animation:fadeIn 1s ease;
+box-shadow:
+0 40px 80px rgba(0,0,0,.35),
+inset 0 4px 12px rgba(255,255,255,.9);
+animation:screenIn .6s ease;
 }
-@keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1}}
 
+@keyframes screenIn{
+from{opacity:0;transform:scale(.85)}
+to{opacity:1;transform:scale(1)}
+}
+
+/* TITULOS GRANDES */
 h1,h2,#question{
 font-weight:900;
-font-size:26px;
+font-size:34px;
+line-height:1.2;
+margin-bottom:20px;
 background:linear-gradient(90deg,#ff1e56,#ff758f,#ffb703);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-text-shadow:0 2px 0 #fff,0 6px 12px rgba(0,0,0,.35),0 0 25px rgba(255,80,120,.8);
+text-shadow:
+0 3px 0 #fff,
+0 8px 16px rgba(0,0,0,.35),
+0 0 30px rgba(255,80,120,.9);
 animation:glow 3s infinite;
 }
-@keyframes glow{
-0%,100%{filter:drop-shadow(0 0 6px #ff4d6d)}
-50%{filter:drop-shadow(0 0 16px #ff85a1)}
+
+#question{font-size:32px}
+
+p{
+font-size:16px;
+color:#6b1b3a;
+margin:14px 0;
 }
 
+/* BOTONES */
 button{
-margin-top:18px;
-padding:16px 28px;
+margin-top:20px;
+padding:18px 30px;
 border:none;
 border-radius:40px;
 font-size:18px;
-font-weight:700;
+font-weight:800;
 color:white;
 background:linear-gradient(135deg,#ff416c,#ff4b2b);
-box-shadow:0 12px 30px rgba(255,80,120,.6);
+box-shadow:0 14px 30px rgba(255,80,120,.6);
 cursor:pointer;
-transition:.3s;
 }
-button:hover{transform:scale(1.08)}
+button:hover{transform:scale(1.1)}
 
+/* OPCIONES */
 .option{
 display:block;
-margin:14px auto;
-padding:18px;
+margin:16px auto;
+padding:20px;
 border-radius:40px;
 background:linear-gradient(135deg,#ff758f,#ff4d6d);
 color:white;
-font-weight:800;
-box-shadow:0 10px 25px rgba(255,80,120,.6);
+font-weight:900;
+font-size:18px;
+box-shadow:0 12px 28px rgba(255,80,120,.6);
 cursor:pointer;
 }
+.option:hover{transform:scale(1.07)}
 
 /* FEEDBACK */
 .feedback{
 position:absolute;
 top:45%;
 left:50%;
-transform:translate(-50%,-50%);
-background:rgba(255,255,255,.25);
-backdrop-filter:blur(14px);
-padding:22px 36px;
+transform:translate(-50%,-50%) scale(1);
+background:rgba(255,255,255,.3);
+backdrop-filter:blur(16px);
+padding:24px 40px;
 border-radius:40px;
-font-size:20px;
+font-size:22px;
 font-weight:900;
 color:#ff1e56;
-box-shadow:0 25px 60px rgba(255,50,100,.6);
+box-shadow:0 30px 70px rgba(255,50,100,.6);
 animation:feedbackPop .4s ease;
 z-index:999;
 }
 @keyframes feedbackPop{
-0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}
-100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+from{opacity:0;transform:translate(-50%,-50%) scale(.6)}
+to{opacity:1;transform:translate(-50%,-50%) scale(1)}
 }
 
 /* SOBRE */
 .envelope{
-width:260px;height:160px;
+width:270px;height:170px;
 background:#f6c1cc;
-border-radius:20px;
+border-radius:24px;
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-box-shadow:0 20px 40px rgba(0,0,0,.3);
+box-shadow:0 22px 45px rgba(0,0,0,.3);
 margin:auto;
 }
-.heart{font-size:48px}
+.heart{font-size:54px}
 
 /* TYPEWRITER */
 .typewriter span{
@@ -150,14 +175,32 @@ setTimeout(()=>e.remove(),8000);
 
 const app=document.getElementById("app");
 
+/* SONIDOS */
+const ctx=new (window.AudioContext||window.webkitAudioContext)();
+
+function sound(freq){
+const o=ctx.createOscillator();
+const g=ctx.createGain();
+o.connect(g);g.connect(ctx.destination);
+o.frequency.value=freq;
+o.type="sine";
+g.gain.value=.15;
+o.start();
+o.stop(ctx.currentTime+.25);
+}
+
 /* CARTA */
 function startEnvelope(){
+app.style.opacity=0;
+setTimeout(()=>{
 app.innerHTML=`
 <h2>Para ti, Scarlett 💌</h2>
 <p>Toca el corazón para abrir la carta</p>
 <div class="envelope" onclick="openLetter()">
 <div class="heart">❤️</div>
 </div>`;
+app.style.opacity=1;
+},400);
 }
 
 function openLetter(){
@@ -178,10 +221,9 @@ function introGame(){
 app.innerHTML=`
 <h2>Antes de continuar… 💕</h2>
 <p>
-Quise preparar algo distinto, algo nuestro.<br><br>
-Un pequeño juego con recuerdos, risas y amor,
-porque nadie nos conoce mejor que nosotros mismos.<br><br>
-Respira, sonríe… y prepárate ❤️
+Preparé algo especial, algo nuestro.<br><br>
+Un pequeño juego con recuerdos, risas y amor.<br><br>
+Respira… sonríe… y prepárate ❤️
 </p>
 <button onclick="startGame()">Comenzar el juego 🎮💖</button>
 `;
@@ -212,6 +254,8 @@ app.appendChild(b);
 }
 
 function answer(i){
+i===questions[idx].c?sound(880):sound(220);
+
 const f=document.createElement("div");
 f.className="feedback";
 f.textContent=i===questions[idx].c
@@ -228,35 +272,23 @@ idx<questions.length?showQ():finalMessage();
 
 /* FINAL */
 function finalMessage(){
-const start=new Date();
-start.setFullYear(start.getFullYear()-9);
-start.setMonth(start.getMonth()-3);
-
 app.innerHTML=`
 <h2>💖 Nuestro tiempo juntos 💖</h2>
 <p id="timer"></p>
 <p class="typewriter" id="love"></p>
-<button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs')">Reproducir nuestra canción 🎶</button>
+<button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs')">
+Reproducir nuestra canción 🎶
+</button>
 `;
-
-setInterval(()=>{
-const d=new Date()-start;
-const s=Math.floor(d/1000)%60;
-const m=Math.floor(d/60000)%60;
-const h=Math.floor(d/3600000)%24;
-const days=Math.floor(d/86400000);
-document.getElementById("timer").innerHTML=
-`9 años, 3 meses, ${days} días, ${h}h ${m}m ${s}s`;
-},1000);
 
 typeText(
 "Te amo Scarlett. 💖\n\n" +
-"Estoy ansioso por todo lo que se nos viene: vivir juntos, compartir lo cotidiano, enfrentar dificultades y aprender de cada una de ellas.\n\n" +
-"Sé que no será siempre fácil, pero también sé que juntos podemos con todo.\n\n" +
-"Eres lo mejor que tengo en mi vida, mi lugar seguro, mi compañera.\n\n" +
-"Y sí… sé que estabas impaciente mirando con quién tanto hablaba estos días 😅,\n" +
-"pero en realidad estaba aquí, escribiendo cada línea de este código,\n" +
-"pensando en ti y en lo mucho que te amo. ❤️"
+"Eres lo mejor que tengo en mi vida.\n\n" +
+"Estaba ansioso escribiendo este código,\n" +
+"mientras tú pensabas con quién hablaba 😅,\n" +
+"cuando en realidad… eras tú todo el tiempo.\n\n" +
+"Gracias por existir, por amarme,\n" +
+"y por ser mi Valentín. ❤️"
 );
 }
 
