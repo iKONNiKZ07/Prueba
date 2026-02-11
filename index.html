@@ -8,120 +8,113 @@
 <style>
 body{
 margin:0;
-font-family:'Segoe UI',sans-serif;
-background:linear-gradient(180deg,#f7b6c2,#e8c0c7);
+padding:0;
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(180deg,#f7a1b1,#f9c6d0);
+overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-overflow:hidden;
 }
 
-/* CONTENEDOR */
-.container{
-background:#fff;
+/* Caja principal */
+.box{
 width:90%;
 max-width:420px;
-padding:40px 25px;
-border-radius:35px;
-box-shadow:0 25px 60px rgba(0,0,0,0.2);
+background:#fff;
+border-radius:30px;
+padding:30px;
 text-align:center;
+box-shadow:0 20px 50px rgba(0,0,0,0.2);
+opacity:0;
+transform:translateY(30px);
+transition:all .6s ease;
 position:relative;
-transition:0.6s ease;
+z-index:2;
 }
 
-/* TITULOS 3D */
+.box.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* Títulos */
 .title{
-font-size:34px;
+font-size:26px;
 font-weight:900;
-background:linear-gradient(45deg,#ff4fa3,#ff85c1);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+color:#ff2f6d;
 text-shadow:
-1px 1px 0 #000,
-2px 2px 6px rgba(255,0,120,0.6);
+0 2px 0 #000,
+0 4px 10px rgba(255,0,100,.6);
 margin-bottom:15px;
 }
 
-/* SUBTEXTO */
 .subtitle{
-font-size:18px;
-color:#7a2e45;
-margin-bottom:30px;
+font-size:16px;
+color:#444;
+margin-bottom:20px;
 }
 
-/* BOTONES */
-button{
-background:linear-gradient(45deg,#ff3e6c,#ff6b9a);
+/* Botones */
+button, .option{
+background:linear-gradient(45deg,#ff4d6d,#ff1f4b);
 border:none;
-color:white;
-padding:15px 40px;
+padding:14px 25px;
 border-radius:30px;
-font-size:18px;
+color:white;
+font-size:16px;
 font-weight:bold;
 cursor:pointer;
-box-shadow:0 8px 20px rgba(255,0,90,0.4);
-transition:0.3s;
-}
-
-button:hover{
-transform:scale(1.05);
-}
-
-/* OPCIONES */
-.option{
-display:block;
 margin:10px 0;
-padding:12px;
-background:linear-gradient(45deg,#ffd1dc,#ffc0cb);
-border-radius:20px;
-cursor:pointer;
-font-weight:bold;
-box-shadow:0 5px 15px rgba(0,0,0,0.2);
-transition:0.3s;
+box-shadow:0 10px 20px rgba(255,0,0,.3);
+transition:all .3s ease;
+display:block;
+width:100%;
 }
 
-.option:hover{
+button:hover, .option:hover{
 transform:scale(1.05);
 }
 
-/* MENSAJE */
+/* Overlay mensaje */
 .overlay{
-position:absolute;
+position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.6);
+backdrop-filter:blur(8px);
 display:flex;
 justify-content:center;
 align-items:center;
-backdrop-filter:blur(5px);
 opacity:0;
 pointer-events:none;
-transition:0.4s;
+transition:.4s;
+z-index:5;
 }
 
 .overlay.active{
 opacity:1;
-pointer-events:auto;
+pointer-events:all;
 }
 
 .message{
 background:white;
-padding:30px;
-border-radius:25px;
-font-size:20px;
+padding:25px;
+border-radius:20px;
+font-size:18px;
 font-weight:bold;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-/* CORAZONES */
+/* Corazones */
 .heart{
-position:absolute;
+position:fixed;
 font-size:20px;
-animation:float 5s linear infinite;
-opacity:0.8;
+animation:float 5s linear forwards;
+opacity:.8;
+z-index:1;
 }
 
 @keyframes float{
@@ -129,41 +122,33 @@ opacity:0.8;
 100%{transform:translateY(-800px);opacity:0;}
 }
 
-/* TRANSICION */
-.fade{
-opacity:0;
-transform:translateY(20px);
-transition:0.6s ease;
-}
-
-.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* CRONOMETRO */
+/* Cronómetro */
 .timer{
 font-size:18px;
-margin-top:15px;
 font-weight:bold;
-color:#d6336c;
+color:#ff2f6d;
+margin-bottom:15px;
 }
-
 </style>
 </head>
+
 <body>
 
-<div class="container fade" id="mainBox">
-
+<div class="box" id="mainBox">
 <div id="screen"></div>
+</div>
 
 <div class="overlay" id="overlay">
 <div class="message" id="messageBox"></div>
 </div>
 
-</div>
-
 <script>
+
+/* REFERENCIAS */
+const screen = document.getElementById("screen");
+const overlay = document.getElementById("overlay");
+const messageBox = document.getElementById("messageBox");
+const mainBox = document.getElementById("mainBox");
 
 /* SONIDOS */
 const correctSound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3");
@@ -211,7 +196,6 @@ const seconds=Math.floor((diff/1000)%60);
 document.getElementById("timer").innerHTML=
 `${days} días ${hours}h ${minutes}m ${seconds}s 💞`;
 }
-setInterval(updateTimer,1000);
 
 /* PANTALLAS */
 function welcome(){
@@ -227,10 +211,10 @@ transition(()=>{
 screen.innerHTML=`
 <div class="title">Nuestro tiempo juntos 💞</div>
 <div id="timer" class="timer"></div>
-<br>
 <button onclick="startGame()">Continuar</button>
 `;
 updateTimer();
+setInterval(updateTimer,1000);
 });
 }
 
@@ -252,6 +236,7 @@ screen.innerHTML+=`<div class="option" onclick="checkAnswer(${i})">${opt}</div>`
 function checkAnswer(index){
 const q=questions[current];
 overlay.classList.add("active");
+
 if(index===q.correct){
 correctSound.play();
 messageBox.innerHTML="Bien amor correcto poto loco 😍";
@@ -276,13 +261,13 @@ transition(()=>{
 screen.innerHTML=`
 <div class="title">Te amo infinitamente ❤️</div>
 <div class="subtitle">
-Han pasado años maravillosos desde el 22 de noviembre de 2016.  
-Y aunque a veces seas impaciente queriendo ver con quién hablaba,
-yo estaba aquí programando este regalo para ti 💕  
-Estoy emocionado por todo lo que viene, nuevos desafíos,
-nuevas aventuras, nuevas metas… pero siempre juntos.
-Gracias por existir, por ser tú, por elegirme.
-Te amo más de lo que estas palabras pueden explicar.
+Han pasado años maravillosos desde el 22 de noviembre de 2016.<br><br>
+Aunque a veces seas impaciente intentando ver con quién hablaba,
+yo estaba aquí haciendo este regalo para ti 💕<br><br>
+Estoy emocionado por todo lo que viene,
+nuevos desafíos, nuevas aventuras,
+nuevas metas… pero siempre juntos.<br><br>
+Te amo más de lo que las palabras pueden explicar.
 </div>
 `;
 });
