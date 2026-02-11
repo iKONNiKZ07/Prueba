@@ -3,386 +3,295 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Scarlett ❤️</title>
+<title>Roma ❤️</title>
 
 <style>
 *{
+margin:0;
+padding:0;
 box-sizing:border-box;
-font-family:'Poppins',system-ui;
-transition:all .45s ease;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
-margin:0;
-min-height:100vh;
-background:linear-gradient(#ff9a9e,#fad0c4,#ffd1dc);
-display:flex;
-align-items:center;
-justify-content:center;
+height:100vh;
 overflow:hidden;
+background:linear-gradient(to top,#ff9a9e,#fad0c4);
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
 }
 
-/* EMOJIS */
+/* -------- FONDO EMOJIS -------- */
+
 .emoji{
 position:absolute;
-font-size:28px;
+font-size:22px;
+animation:floatUp linear infinite;
 opacity:.7;
-animation:float 8s linear infinite;
-pointer-events:none;
-}
-@keyframes float{
-0%{transform:translateY(100vh) scale(.6);opacity:0}
-10%{opacity:1}
-100%{transform:translateY(-120vh) scale(1.2);opacity:0}
 }
 
-/* BLUR */
-.blur{
-filter:blur(8px) brightness(.7);
-pointer-events:none;
-}
-
-/* CARD */
-.card{
-background:linear-gradient(145deg,#fff,#ffe6ec);
-padding:45px;
-border-radius:36px;
-width:90%;
-max-width:560px;
-text-align:center;
-box-shadow:
-0 40px 80px rgba(0,0,0,.35),
-inset 0 4px 12px rgba(255,255,255,.9);
-animation:screenIn .6s ease;
-}
-
-.fade-out{
+@keyframes floatUp{
+from{
+transform:translateY(100vh) scale(.8);
 opacity:0;
-transform:translateY(20px) scale(.97);
-pointer-events:none;
 }
-.fade-in{
+to{
+transform:translateY(-10vh) scale(1.2);
 opacity:1;
-transform:translateY(0) scale(1);
+}
 }
 
-@keyframes screenIn{
-from{opacity:0;transform:scale(.85)}
-to{opacity:1;transform:scale(1)}
+/* -------- TARJETAS -------- */
+
+.card{
+width:90%;
+max-width:500px;
+background:rgba(255,255,255,.9);
+padding:30px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.2);
+position:absolute;
+transition:all .6s ease;
+opacity:0;
+transform:scale(.9);
 }
 
-/* TITULOS – BORDE CORREGIDO */
-h1,h2,#question{
-font-weight:900;
-font-size:38px;
-line-height:1.2;
-margin-bottom:22px;
+.card.active{
+opacity:1;
+transform:scale(1);
+}
+
+/* -------- TITULOS -------- */
+
+h1,h2{
+font-size:32px;
+margin-bottom:20px;
 background:linear-gradient(90deg,#ff2f92,#ff6fae,#ff9ccf);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-
-/* BORDE NEGRO FINO SOLO EN LA LETRA */
 text-shadow:
--1px -1px 0 rgba(0,0,0,.45),
- 1px -1px 0 rgba(0,0,0,.45),
--1px  1px 0 rgba(0,0,0,.45),
- 1px  1px 0 rgba(0,0,0,.45),
-
-/* RELIEVE */
-0 3px 0 #ffd1e8,
-
-/* SOMBRA PROFUNDA */
-0 10px 25px rgba(255,60,150,.6),
-
-/* BRILLO */
-0 0 45px rgba(255,80,170,.9);
-
-animation:glow 3s infinite;
+0 4px 10px rgba(255,0,120,.6),
+0 0 25px rgba(255,0,150,.4);
 }
 
-#question{font-size:34px}
+/* -------- BOTONES -------- */
 
-p{
-font-size:16px;
-color:#6b1b3a;
-margin:14px 0;
-}
-
-/* TIMER */
-.timer{
-margin:22px auto;
-padding:18px 28px;
-border-radius:34px;
-background:linear-gradient(135deg,#ff5fa2,#ff85b8);
-color:white;
-font-weight:900;
-font-size:20px;
-box-shadow:
-0 20px 40px rgba(255,90,160,.7),
-inset 0 2px 6px rgba(255,255,255,.5);
-}
-
-/* BUTTON */
 button{
-margin-top:20px;
-padding:18px 32px;
+margin-top:15px;
+padding:14px 30px;
 border:none;
-border-radius:44px;
-font-size:18px;
-font-weight:800;
+border-radius:40px;
+background:linear-gradient(45deg,#ff416c,#ff4b2b);
 color:white;
-background:linear-gradient(135deg,#ff416c,#ff4b2b);
-box-shadow:
-0 16px 36px rgba(255,80,120,.6),
-inset 0 3px 6px rgba(255,255,255,.5);
+font-size:18px;
 cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+transition:.3s;
 }
-button:hover{transform:scale(1.1)}
 
-/* OPTIONS */
+button:hover{
+transform:scale(1.05);
+}
+
+/* -------- OPCIONES -------- */
+
 .option{
 display:block;
-margin:18px auto;
-padding:22px;
-border-radius:44px;
-background:linear-gradient(135deg,#ff758f,#ff4d6d);
+width:100%;
+margin:10px 0;
+padding:12px;
+border-radius:30px;
+background:linear-gradient(45deg,#ff758c,#ff7eb3);
 color:white;
-font-weight:900;
-font-size:18px;
-box-shadow:
-0 18px 40px rgba(255,80,120,.7),
-inset 0 3px 6px rgba(255,255,255,.5);
-text-shadow:0 2px 4px rgba(0,0,0,.5);
 cursor:pointer;
-}
-.option:hover{transform:scale(1.07)}
-.option.clicked{
-transform:scale(.95);
-opacity:.8;
-pointer-events:none;
+transition:.3s;
+box-shadow:0 6px 15px rgba(0,0,0,.3);
 }
 
-/* FEEDBACK */
-.feedback{
-position:absolute;
-top:45%;
+.option:hover{
+transform:scale(1.05);
+}
+
+/* -------- MENSAJE -------- */
+
+#message{
+position:fixed;
+top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-background:rgba(255,255,255,.35);
-backdrop-filter:blur(18px);
-padding:30px 48px;
-border-radius:44px;
-font-size:24px;
-font-weight:900;
-color:#ff1e56;
-box-shadow:0 35px 80px rgba(255,50,120,.8);
+background:white;
+padding:20px 40px;
+border-radius:30px;
+box-shadow:0 15px 40px rgba(0,0,0,.3);
+display:none;
 z-index:999;
+font-size:18px;
 }
 
-/* SOBRE */
-.envelope{
-width:280px;height:180px;
-background:#f6c1cc;
-border-radius:26px;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-box-shadow:0 24px 48px rgba(0,0,0,.3);
-margin:auto;
+.blur{
+filter:blur(6px);
 }
-.heart{font-size:56px}
 
-/* TYPEWRITER */
-.typewriter span{
-border-right:3px solid #ff4d6d;
-animation:blink 1s infinite;
-}
-@keyframes blink{50%{border-color:transparent}}
 </style>
 </head>
-
 <body>
 
-<div id="app" class="card fade-in">
+<div id="message"></div>
+
+<!-- PANTALLA 1 -->
+<div class="card active" id="welcome">
 <h1>💖 Bienvenida señorita Scarlett Aguilera Purches 💖</h1>
-<p>A este juego hecho con tanto amor, de mí para ti 🌸</p>
-<button onclick="startEnvelope()">Empezar</button>
+<p>A este juego hecho con tanto amor de mí para ti 🌸</p>
+<button onclick="startGame()">Empezar</button>
+</div>
+
+<!-- PREGUNTAS -->
+<div class="card" id="quiz">
+<h2 id="question"></h2>
+<div id="options"></div>
+</div>
+
+<!-- FINAL -->
+<div class="card" id="final">
+<h2>Te amo Scarlett ❤️</h2>
+<p id="timeTogether"></p>
+<p id="liveTimer"></p>
+<br>
+<p>
+Han sido 9 años y 3 meses caminando juntos.  
+Estoy ansioso por todo lo que se viene: vivir juntos,  
+enfrentar desafíos, crecer, construir nuestro hogar,  
+superar cualquier dificultad de la mano.  
+Eres lo mejor que tengo en mi vida.  
+Y aunque eres muy impaciente preguntando con quién hablaba…  
+estaba aquí programando esto para ti 😏❤️
+</p>
+<br>
+<button onclick="playMusic()">🎵 Escuchar nuestra canción</button>
 </div>
 
 <script>
-/* EMOJIS */
-setInterval(()=>{
+
+/* -------- EMOJIS FLOTANTES -------- */
+
+function createEmoji(){
 const e=document.createElement("div");
-e.className="emoji";
-e.style.left=Math.random()*100+"vw";
+e.classList.add("emoji");
+e.style.left=Math.random()*100+"%";
+e.style.animationDuration=(4+Math.random()*4)+"s";
 e.innerHTML=Math.random()>.5?"❤️":"😍";
 document.body.appendChild(e);
 setTimeout(()=>e.remove(),8000);
-},380);
-
-const app=document.getElementById("app");
-
-/* SOUND */
-const ctx=new (window.AudioContext||window.webkitAudioContext)();
-function sound(f){
-const o=ctx.createOscillator();
-const g=ctx.createGain();
-o.connect(g);g.connect(ctx.destination);
-o.frequency.value=f;
-g.gain.value=.15;
-o.start();o.stop(ctx.currentTime+.25);
 }
+setInterval(createEmoji,800);
 
-/* TRANSITION (FIXED) */
-function transition(cb){
-  app.classList.remove("fade-in","fade-out");
-  void app.offsetWidth;
-  app.classList.add("fade-out");
+/* -------- JUEGO -------- */
 
-  setTimeout(()=>{
-    cb();
-    app.classList.remove("fade-out");
-    void app.offsetWidth;
-    app.classList.add("fade-in");
-  },450);
-}
-
-/* ENVELOPE */
-function startEnvelope(){
-transition(()=>{
-app.innerHTML=`
-<h2>Para ti, Scarlett 💌</h2>
-<p>Toca el corazón para abrir la carta</p>
-<div class="envelope" onclick="openLetter()"><div class="heart">❤️</div></div>`;
-});
-}
-
-function openLetter(){
-transition(()=>{
-app.innerHTML=`
-<h2>¿Quieres ser mi Valentín este año?</h2>
-<button onclick="introGame()">Sí 💖</button>
-<button onclick="growYes()">No 🙈</button>`;
-});
-}
-
-let grow=1;
-function growYes(){
-grow+=.3;
-document.querySelector("button").style.transform=\`scale(\${grow})\`;
-}
-
-/* INTRO */
-function introGame(){
-transition(()=>{
-app.innerHTML=`
-<h2>Bienvenida al juego 💕</h2>
-<p>Responde estas preguntas sobre nosotros…</p>
-<button onclick="startGame()">Comenzar 🎮</button>`;
-});
-}
-
-/* QUESTIONS */
 const questions=[
-{q:"¿Dónde fue nuestro primer beso? 😘",o:["En el metro","En el Mall","En el paradero de la micro"],c:2},
-{q:"¿Qué equipos sigo?",o:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión San Felipe","Ninguna"],c:3},
-{q:"¿Uno de los primeros regalos?",o:["Cartera","Cuadro de conejito","Flores"],c:1},
-{q:"¿Nombres futuros hijos?",o:["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"],c:1},
-{q:"¿Me amas más que yo a ti?",o:["Sí","No"],c:1}
+{
+q:"¿Dónde fue nuestro primer beso? 😘",
+a:["En el metro","En el Mall","En el paradero de la micro"],
+c:2
+},
+{
+q:"¿Cuáles son los 2 equipos de futbol que sigo?",
+a:["Colo Colo y Barcelona","La U y Real Madrid","Real Madrid y Unión San Felipe","Ninguna de las anteriores"],
+c:3
+},
+{
+q:"¿Cuál fue uno de los primeros regalos?",
+a:["Una cartera","Un cuadro de conejito","Un ramo de flores"],
+c:1
+},
+{
+q:"¿Nombres de nuestros futuros hijos?",
+a:["Christopher y Alana","Milán y Mía","Eustaquio y Brígida"],
+c:1
+},
+{
+q:"¿Me amas más que yo a ti?",
+a:["Sí","No"],
+c:1
+}
 ];
-let idx=0,locked=false;
 
-function startGame(){showQ();}
+let current=0;
 
-function showQ(){
-transition(()=>{
-const q=questions[idx];
-app.innerHTML=\`<h2 id="question">\${q.q}</h2>\`;
-q.o.forEach((t,i)=>{
-const b=document.createElement("div");
-b.className="option";
-b.textContent=t;
-b.onclick=()=>answer(i,b);
-app.appendChild(b);
-});
+function startGame(){
+document.getElementById("welcome").classList.remove("active");
+setTimeout(()=>{
+document.getElementById("quiz").classList.add("active");
+loadQuestion();
+},600);
+}
+
+function loadQuestion(){
+const q=questions[current];
+document.getElementById("question").innerText=q.q;
+const optionsDiv=document.getElementById("options");
+optionsDiv.innerHTML="";
+q.a.forEach((text,index)=>{
+const btn=document.createElement("div");
+btn.classList.add("option");
+btn.innerText=text;
+btn.onclick=()=>checkAnswer(index);
+optionsDiv.appendChild(btn);
 });
 }
 
-function answer(i,btn){
-if(locked)return;
-locked=true;
-btn.classList.add("clicked");
-i===questions[idx].c?sound(880):sound(220);
+function checkAnswer(i){
+const msg=document.getElementById("message");
+msg.style.display="block";
+document.body.classList.add("blur");
 
-app.classList.add("blur");
-
-const f=document.createElement("div");
-f.className="feedback";
-f.textContent=i===questions[idx].c
-?"Bien amor correcto poto loco 😍"
-:"Que sopenca jajaja 🤭 pero te amo muche ❤️";
-document.body.appendChild(f);
+if(i===questions[current].c){
+msg.innerHTML="Bien amor correcto poto loco 😍";
+}else{
+msg.innerHTML="Que sopenca jajaja pero te amo muche ❤️";
+}
 
 setTimeout(()=>{
-f.remove();
-app.classList.remove("blur");
-idx++;locked=false;
-idx<questions.length?showQ():finalMessage();
+msg.style.display="none";
+document.body.classList.remove("blur");
+current++;
+if(current<questions.length){
+loadQuestion();
+}else{
+document.getElementById("quiz").classList.remove("active");
+setTimeout(()=>{
+document.getElementById("final").classList.add("active");
+startTimer();
+},600);
+}
 },3000);
 }
 
-/* FINAL */
-function finalMessage(){
-transition(()=>{
-app.innerHTML=`
-<h2>💖 Nuestro tiempo juntos 💖</h2>
-<div class="timer" id="timer"></div>
-<p class="typewriter" id="love"></p>
-<button onclick="window.open('https://music.youtube.com/watch?v=4eP6Z2HYMBU')">
-Reproducir nuestra canción 🎶
-</button>`;
-startTimer();
-typeText(
-"Te amo Scarlett ❤️\n\n"+
-"Quizás fuiste un poco impaciente,\n"+
-"mirando el celular pensando\n"+
-"con quién hablaba tanto…\n\n"+
-"y en realidad estaba aquí,\n"+
-"haciendo este regalo para ti.\n\n"+
-"Me emociona todo lo que viene:\n"+
-"vivir juntos, crecer juntos,\n"+
-"enfrentar dificultades\n"+
-"y salir adelante como siempre.\n\n"+
-"Eres lo mejor que tengo en mi vida 💖"
-);
-});
-}
+/* -------- TIEMPO -------- */
 
-/* TIMER */
 function startTimer(){
-const start=new Date("2015-11-01T00:00:00");
-setInterval(()=>{
+const startDate=new Date("2016-11-11T00:00:00"); // AJUSTABLE
+function update(){
 const now=new Date();
-let d=Math.floor((now-start)/86400000);
-let h=now.getHours();
-let m=now.getMinutes();
-let s=now.getSeconds();
-document.getElementById("timer").textContent=
-\`\${d} días \${h}h \${m}m \${s}s\`;
-},1000);
+const diff=now-startDate;
+const days=Math.floor(diff/1000/60/60/24);
+const hours=Math.floor(diff/1000/60/60)%24;
+const mins=Math.floor(diff/1000/60)%60;
+const secs=Math.floor(diff/1000)%60;
+document.getElementById("liveTimer").innerHTML=
+`Tiempo juntos: ${days} días ${hours} horas ${mins} minutos ${secs} segundos ❤️`;
+}
+setInterval(update,1000);
 }
 
-/* TYPE */
-function typeText(t){
-let i=0;
-const el=document.getElementById("love");
-const int=setInterval(()=>{
-el.innerHTML=t.slice(0,i).replace(/\\n/g,"<br>")+"<span></span>";
-i++;if(i>t.length)clearInterval(int);
-},45);
+/* -------- MUSICA -------- */
+
+function playMusic(){
+window.open("https://music.youtube.com/watch?v=4eP6Z2HYMBU&si=SRN7HBwaXa-AyIEs","_blank");
 }
+
 </script>
-
 </body>
 </html>
