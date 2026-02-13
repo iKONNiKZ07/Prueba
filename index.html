@@ -244,9 +244,24 @@ document.getElementById("timer").innerHTML=
 }
 
 function startGame(){
+transition(()=>{
+screen.innerHTML=`
+<div class="title">💘 Bienvenida al juego de nuestras preguntas 💘</div>
+<div class="subtitle">
+Ahora viene la parte divertida 😏<br><br>
+Veamos cuánto sabes de nuestra historia,
+nuestros momentos especiales y todas nuestras locuras 💞<br><br>
+¿Estás lista para jugar?
+</div>
+<button onclick="beginQuestions()">Comenzar preguntas 💖</button>
+`;
+});
+}
+function beginQuestions(){
 current=0;
 showQuestion();
 }
+
 
 function showQuestion(){
 transition(()=>{
