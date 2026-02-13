@@ -9,8 +9,8 @@
 body{
 margin:0;
 padding:0;
-font-family: 'Segoe UI', sans-serif;
-background: linear-gradient(180deg,#f7a1b1,#f9c6d0);
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(180deg,#f7a1b1,#f9c6d0);
 overflow:hidden;
 display:flex;
 justify-content:center;
@@ -18,7 +18,6 @@ align-items:center;
 height:100vh;
 }
 
-/* Caja principal */
 .box{
 width:90%;
 max-width:420px;
@@ -26,10 +25,10 @@ background:#fff;
 border-radius:30px;
 padding:30px;
 text-align:center;
-box-shadow:0 20px 50px rgba(0,0,0,0.2);
+box-shadow:0 20px 50px rgba(0,0,0,.2);
 opacity:0;
 transform:translateY(30px);
-transition:all .6s ease;
+transition:.6s ease;
 position:relative;
 z-index:2;
 }
@@ -39,13 +38,15 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* Títulos */
 .title{
-font-size:26px;
+font-size:28px;
 font-weight:900;
 color:#ff2f6d;
 text-shadow:
-0 2px 0 #000,
+-1px -1px 0 #000,
+1px -1px 0 #000,
+-1px 1px 0 #000,
+1px 1px 0 #000,
 0 4px 10px rgba(255,0,100,.6);
 margin-bottom:15px;
 }
@@ -56,8 +57,7 @@ color:#444;
 margin-bottom:20px;
 }
 
-/* Botones */
-button, .option{
+button,.option{
 background:linear-gradient(45deg,#ff4d6d,#ff1f4b);
 border:none;
 padding:14px 25px;
@@ -68,16 +68,15 @@ font-weight:bold;
 cursor:pointer;
 margin:10px 0;
 box-shadow:0 10px 20px rgba(255,0,0,.3);
-transition:all .3s ease;
+transition:.3s ease;
 display:block;
 width:100%;
 }
 
-button:hover, .option:hover{
+button:hover,.option:hover{
 transform:scale(1.05);
 }
 
-/* Overlay mensaje */
 .overlay{
 position:fixed;
 top:0;
@@ -106,9 +105,9 @@ border-radius:20px;
 font-size:18px;
 font-weight:bold;
 box-shadow:0 10px 30px rgba(0,0,0,.2);
+text-align:center;
 }
 
-/* Corazones */
 .heart{
 position:fixed;
 font-size:20px;
@@ -122,12 +121,23 @@ z-index:1;
 100%{transform:translateY(-800px);opacity:0;}
 }
 
-/* Cronómetro */
 .timer{
 font-size:18px;
 font-weight:bold;
 color:#ff2f6d;
 margin-bottom:15px;
+}
+
+.envelope{
+font-size:60px;
+cursor:pointer;
+animation:beat 1s infinite;
+}
+
+@keyframes beat{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
 }
 </style>
 </head>
@@ -144,17 +154,14 @@ margin-bottom:15px;
 
 <script>
 
-/* REFERENCIAS */
-const screen = document.getElementById("screen");
-const overlay = document.getElementById("overlay");
-const messageBox = document.getElementById("messageBox");
-const mainBox = document.getElementById("mainBox");
+const screen=document.getElementById("screen");
+const overlay=document.getElementById("overlay");
+const messageBox=document.getElementById("messageBox");
+const mainBox=document.getElementById("mainBox");
 
-/* SONIDOS */
 const correctSound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3");
 const wrongSound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-buzz-950.mp3");
 
-/* CORAZONES */
 function createHeart(){
 const heart=document.createElement("div");
 heart.className="heart";
@@ -166,44 +173,50 @@ setTimeout(()=>heart.remove(),5000);
 }
 setInterval(createHeart,800);
 
-/* PREGUNTAS */
-const questions=[
-{
-q:"¿Cuántos años llevamos juntos?",
-options:["8 años","9 años","10 años"],
-correct:1
-},
-{
-q:"¿En qué año comenzó nuestra historia?",
-options:["2015","2016","2017"],
-correct:1
-}
-];
-
 let current=0;
 
-/* CRONOMETRO */
-function updateTimer(){
-const startDate=new Date("2016-11-22T00:00:00");
-const now=new Date();
-const diff=now-startDate;
+const questions=[
+{q:"¿Cuántos años llevamos juntos?",options:["8 años","9 años","10 años"],correct:1},
+{q:"¿En qué año comenzó nuestra historia?",options:["2015","2016","2017"],correct:1},
+{q:"¿Dónde nos dimos nuestro primer beso?",options:["En el metro","El mall","El paradero"],correct:2},
+{q:"¿Cuáles son los equipos que sigo?",options:["Colo Colo y Barcelona","Barcelona y Unión San Felipe","Colo Colo y Real Madrid"],correct:2},
+{q:"¿Qué comimos la primera vez que conocí a tus papás?",options:["Parrillada","Comida china","Hamburguesas"],correct:1},
+{q:"Tú crees que me amas más que yo a ti?",options:["Sí","No"],special:true},
+{q:"¿Qué es lo que más amo que me hagas?",options:["Besarme","Abrazarme","Masajes"],correct:1}
+];
 
-const days=Math.floor(diff/(1000*60*60*24));
-const hours=Math.floor((diff/(1000*60*60))%24);
-const minutes=Math.floor((diff/(1000*60))%60);
-const seconds=Math.floor((diff/1000)%60);
-
-document.getElementById("timer").innerHTML=
-`${days} días ${hours}h ${minutes}m ${seconds}s 💞`;
+function transition(callback){
+mainBox.classList.remove("show");
+setTimeout(()=>{
+callback();
+mainBox.classList.add("show");
+},300);
 }
 
-/* PANTALLAS */
-function welcome(){
+function envelopeScreen(){
 screen.innerHTML=`
-<div class="title">💗 Bienvenida señorita Scarlett Aguilera Purches 💗</div>
+<div class="title">Tengo algo para ti 💌</div>
+<div class="envelope" onclick="openLetter()">💖</div>
+`;
+}
+
+function openLetter(){
+transition(()=>{
+screen.innerHTML=`
+<div class="title">¿Quieres ser mi San Valentín? 💘</div>
+<button onclick="welcome()">Sí quiero 💕</button>
+`;
+});
+}
+
+function welcome(){
+transition(()=>{
+screen.innerHTML=`
+<div class="title">Bienvenida señorita Scarlett Aguilera Purches 💗</div>
 <div class="subtitle">A este juego hecho con tanto amor, de mí para ti 🌸</div>
 <button onclick="intro()">Empezar</button>
 `;
+});
 }
 
 function intro(){
@@ -218,6 +231,18 @@ setInterval(updateTimer,1000);
 });
 }
 
+function updateTimer(){
+const startDate=new Date("2016-11-22T00:00:00");
+const now=new Date();
+const diff=now-startDate;
+const d=Math.floor(diff/86400000);
+const h=Math.floor((diff/3600000)%24);
+const m=Math.floor((diff/60000)%60);
+const s=Math.floor((diff/1000)%60);
+document.getElementById("timer").innerHTML=
+`${d} días ${h}h ${m}m ${s}s 💞`;
+}
+
 function startGame(){
 current=0;
 showQuestion();
@@ -227,10 +252,30 @@ function showQuestion(){
 transition(()=>{
 const q=questions[current];
 screen.innerHTML=`<div class="title">${q.q}</div>`;
+if(q.special){
+screen.innerHTML+=`
+<button id="yesBtn" onclick="growNo()">Sí</button>
+<button id="noBtn" onclick="nextAfterLove()">No</button>
+`;
+}else{
 q.options.forEach((opt,i)=>{
 screen.innerHTML+=`<div class="option" onclick="checkAnswer(${i})">${opt}</div>`;
 });
+}
 });
+}
+
+let growSize=1;
+
+function growNo(){
+growSize+=0.2;
+document.getElementById("noBtn").style.transform=`scale(${growSize})`;
+document.getElementById("yesBtn").style.transform=`scale(${1-(growSize/5)})`;
+}
+
+function nextAfterLove(){
+current++;
+showQuestion();
 }
 
 function checkAnswer(index){
@@ -261,29 +306,20 @@ transition(()=>{
 screen.innerHTML=`
 <div class="title">Te amo infinitamente ❤️</div>
 <div class="subtitle">
-Han pasado años maravillosos desde el 22 de noviembre de 2016.<br><br>
-Aunque a veces seas impaciente intentando ver con quién hablaba,
-yo estaba aquí haciendo este regalo para ti 💕<br><br>
-Estoy emocionado por todo lo que viene,
-nuevos desafíos, nuevas aventuras,
-nuevas metas… pero siempre juntos.<br><br>
+Desde el 22 de noviembre de 2016 comenzó nuestra historia.<br><br>
+A veces eres impaciente intentando ver con quién hablaba…
+y lo único que hacía era programar este regalo para ti 💕<br><br>
+Estoy emocionado por todo lo que se viene:
+nuevos desafíos, aventuras, metas y sueños,
+pero siempre juntos.<br><br>
 Te amo más de lo que las palabras pueden explicar.
 </div>
 `;
 });
 }
 
-/* TRANSICION */
-function transition(callback){
-mainBox.classList.remove("show");
-setTimeout(()=>{
-callback();
-mainBox.classList.add("show");
-},300);
-}
-
 window.onload=()=>{
-welcome();
+envelopeScreen();
 setTimeout(()=>mainBox.classList.add("show"),200);
 };
 
