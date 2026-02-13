@@ -339,7 +339,20 @@ Te amo más de lo que las palabras pueden explicar.
 }
   
 function goToSong(){
-window.open("https://youtu.be/v3-9eDFDAFw?si=KuZtBpkLom63nCY4", "_blank");
+
+// Intensificar corazones
+let heartInterval = setInterval(()=>{
+for(let i=0;i<5;i++){
+createHeart();
+}
+},200);
+
+// Después de 2 segundos redirige
+setTimeout(()=>{
+clearInterval(heartInterval);
+window.location.href="https://youtu.be/v3-9eDFDAFw?si=KuZtBpkLom63nCY4";
+},2000);
+
 }
 
 window.onload=()=>{
